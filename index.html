@@ -1,5 +1,11 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sara .com</title>
+</head>
+<body>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap">
 <style>
   :root{
@@ -17,19 +23,14 @@
     color:var(--text);
     background:#0d0c0b;
     overflow-x:hidden;
-    cursor:none;
   }
   html[lang="ar"] body, html[lang="ar"] button{font-family:"Cairo","Segoe UI",Tahoma,sans-serif}
   html[lang="ar"] .hello, html[lang="ar"] .tag, html[lang="ar"] .logo{letter-spacing:0}
-  @media (hover:none){ body{cursor:auto} .cursor,.cursor-dot{display:none} }
 
   /* ---------- Video background ---------- */
   .bg{
-    position:fixed; inset:-5%;
+    position:fixed; inset:0;
     z-index:-3; overflow:hidden; background:#1a1816;
-    transform:translate3d(0,0,0) scale(1.08);
-    transition:transform .25s ease-out;
-    will-change:transform;
   }
   .bg-video{
     position:absolute; inset:0; width:100%; height:100%;
@@ -39,22 +40,7 @@
   .bg-overlay{
     position:fixed; inset:0; z-index:-2;
     background:
-      radial-gradient(circle 280px at var(--mx,50%) var(--my,50%), rgba(0,0,0,0) 0%, rgba(0,0,0,.62) 100%),
       linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55));
-  }
-  #fx{position:fixed;inset:0;z-index:-1;pointer-events:none}
-
-  /* ---------- Custom cursor ---------- */
-  .cursor{
-    position:fixed; top:0; left:0; width:38px; height:38px; margin:-19px 0 0 -19px;
-    border:1.5px solid var(--accent); border-radius:50%;
-    pointer-events:none; z-index:100;
-    transition:width .2s,height .2s,margin .2s,background .2s;
-  }
-  .cursor.hover{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(217,179,140,.15)}
-  .cursor-dot{
-    position:fixed; top:0; left:0; width:6px;height:6px; margin:-3px 0 0 -3px;
-    background:var(--accent); border-radius:50%; pointer-events:none; z-index:101;
   }
 
   /* ---------- Floating pill nav ---------- */
@@ -76,17 +62,16 @@
   nav a:hover{color:var(--accent);opacity:1}
   .lang{
     font:inherit;font-size:.85rem;font-weight:600;color:var(--text);background:rgba(0,0,0,.25);
-    border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:7px 14px;cursor:none;transition:.2s;
+    border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:7px 14px;cursor:pointer;transition:.2s;
   }
   .lang:hover{background:var(--accent);color:#1a1510}
   .burger{
     display:none;width:42px;height:42px;border-radius:50%;border:0;background:rgba(0,0,0,.25);
-    cursor:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px;
   }
   .burger span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:.25s}
   .burger.open span:first-child{transform:translateY(4px) rotate(45deg)}
   .burger.open span:last-child{transform:translateY(-4px) rotate(-45deg)}
-  @media (hover:none){.lang,.burger{cursor:pointer}}
   @media(max-width:760px){
     nav{padding:8px 8px 8px 20px}
     .burger{display:flex}
@@ -155,12 +140,6 @@
     position:relative;transform-style:preserve-3d;transition:transform .15s ease-out;
     overflow:hidden;
   }
-  .card::before{
-    content:"";position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(circle 160px at var(--cx,50%) var(--cy,50%),rgba(255,255,255,.18),transparent 70%);
-    opacity:0;transition:opacity .2s;
-  }
-  .card:hover::before{opacity:1}
   .card h3{margin:10px 0 8px;transform:translateZ(30px)}
   .card p{color:var(--muted);line-height:1.7;font-size:.95rem;transform:translateZ(20px)}
   .tag{font-size:.75rem;letter-spacing:.15em;color:var(--accent);text-transform:uppercase}
@@ -170,19 +149,33 @@
   .contact{max-width:560px}
   .contact p{color:var(--muted);margin-bottom:22px;line-height:1.7}
   .links{display:flex;gap:14px;flex-wrap:wrap}
-  .info{list-style:none;display:grid;gap:14px;margin-bottom:26px}
-  .info li{display:flex;flex-direction:column;gap:2px;min-width:0}
-  .info span{color:var(--muted);font-size:.8rem}
-  .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-  .info .val{color:var(--text);font-weight:600;font-size:1.05rem;overflow-wrap:anywhere;text-decoration:none;border-bottom:1px solid var(--accent);opacity:1}
-  .info .val:hover{color:var(--accent)}
-  .copy{font:inherit;font-size:.78rem;font-weight:600;color:var(--accent);background:transparent;border:1px solid var(--border);border-radius:30px;padding:4px 12px;cursor:none;transition:.2s}
-  .copy:hover{background:var(--accent);color:#1a1510}
-  @media (hover:none){.copy{cursor:pointer}}
-  footer{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;padding:30px;color:var(--muted);font-size:.85rem}
-  .social{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-  .social a{color:var(--text);text-decoration:none;padding:9px 20px;border:1px solid var(--border);border-radius:30px;background:rgba(255,255,255,.06);font-size:.9rem;transition:.2s}
-  .social a:hover{background:var(--accent);color:#1a1510;transform:translateY(-3px)}
+  .icons{display:flex;gap:14px;flex-wrap:wrap}
+  .icon-btn{
+    width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
+    color:var(--text);text-decoration:none;border:1px solid var(--border);background:rgba(255,255,255,.08);
+    transition:.25s;
+  }
+  .icon-btn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .icon-btn:hover{background:var(--accent);color:#1a1510;border-color:var(--accent);transform:translateY(-4px);box-shadow:0 10px 26px rgba(217,179,140,.3)}
+  .icons.sm{justify-content:center}
+  .icons.sm .icon-btn{width:46px;height:46px}
+  .icons.sm .icon-btn svg{width:20px;height:20px}
+  .toast{
+    position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);
+    z-index:120;padding:12px 22px;border-radius:30px;background:rgba(20,18,16,.9);color:var(--text);
+    border:1px solid var(--accent);font-size:.9rem;opacity:0;pointer-events:none;transition:.3s;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  footer{padding:48px 6vw calc(36px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.85rem;display:flex;flex-direction:column;gap:40px}
+  .foot-card{max-width:560px;padding:24px;text-align:center}
+  .foot-card b{display:block;color:var(--text);font-size:1rem;margin-bottom:6px}
+  .foot-cols{display:flex;gap:clamp(40px,12vw,120px);flex-wrap:wrap}
+  .foot-col{display:flex;flex-direction:column;gap:12px}
+  .foot-col h4{font-weight:400;color:var(--muted);font-size:.9rem}
+  .foot-col a{color:var(--text);text-decoration:none;font-weight:700;font-size:1.05rem;transition:.2s;width:fit-content}
+  .foot-col a:hover{color:var(--accent);transform:translateX(4px)}
+  html[dir="rtl"] .foot-col a:hover{transform:translateX(-4px)}
+  .copy-line{color:var(--muted);font-size:.8rem}
 
 
   /* ---------- Phones & portrait screens ---------- */
@@ -201,6 +194,25 @@
     .pill-btn{gap:10px;padding-left:18px}
   }
 
+  /* ---------- Welcome screen ---------- */
+  #intro{
+    position:fixed; inset:0; z-index:90; background:#0d0c0b;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+    padding:24px; text-align:center; cursor:pointer;
+    transition:opacity .9s ease, visibility .9s ease;
+    animation:introOut .9s ease 3.4s forwards;
+  }
+  #intro.done{opacity:0;visibility:hidden}
+  #intro .i-small{color:var(--accent);letter-spacing:.35em;text-transform:uppercase;font-size:.85rem;opacity:0;animation:introUp .9s ease .3s forwards}
+  #intro .i-big{font-size:clamp(2.2rem,7vw,4.6rem);font-weight:800;line-height:1.15;max-width:900px;opacity:0;animation:introUp 1s ease .7s forwards}
+  #intro .i-line{width:0;height:2px;background:var(--accent);border-radius:2px;animation:introLine 1.2s ease 1.3s forwards}
+  html[lang="ar"] #intro .i-small{letter-spacing:0}
+  @keyframes introUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes introLine{to{width:min(220px,50vw)}}
+  @keyframes introOut{to{opacity:0;visibility:hidden}}
+  @media (hover:none){#intro{cursor:auto}}
+  @media (prefers-reduced-motion:reduce){#intro .i-small,#intro .i-big{animation:none;opacity:1}#intro .i-line{animation:none;width:160px}}
+
   .reveal{opacity:0;transform:translateY(40px);transition:1s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){
@@ -209,11 +221,15 @@
   }
 </style>
 
+<div id="intro" role="status" aria-live="polite">
+  <p class="i-small" data-i18n="intro_small">Sara Mahmoud</p>
+  <h1 class="i-big" data-i18n="intro_big">Welcome to my portfolio</h1>
+  <span class="i-line"></span>
+</div>
+
 <div class="bg" id="bg"><video class="bg-video" id="bgv" muted playsinline preload="auto" poster="bg.jpg" disablepictureinpicture></video></div>
 <div class="bg-overlay" id="overlay"></div>
-<canvas id="fx"></canvas>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-dot" id="dot"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <nav>
   <a class="logo" href="#home" data-i18n="logo">SARA MAHMOUD</a>
@@ -261,23 +277,31 @@
   <h2 class="reveal" data-i18n="contact_h">Let's work together</h2>
   <div class="glass contact reveal">
     <p data-i18n="contact_p">Have a project or an opportunity? I'd love to hear from you.</p>
-    <ul class="info">
-      <li><span data-i18n="c_email">Email</span><div class="row"><a class="val" dir="ltr" href="mailto:saramahmoud.dev@gmail.com">saramahmoud.dev@gmail.com</a><button class="copy" type="button" data-copy="saramahmoud.dev@gmail.com" data-i18n="copy">Copy</button></div></li>
-      <li><span data-i18n="c_phone">Phone / WhatsApp</span><div class="row"><a class="val" dir="ltr" href="tel:+201023874936">01023874936</a><button class="copy" type="button" data-copy="01023874936" data-i18n="copy">Copy</button></div></li>
-    </ul>
-    <div class="links">
-      <a class="btn fill" href="https://wa.me/201023874936" target="_blank" rel="noopener" data-i18n="wa">Chat on WhatsApp</a>
-      <a class="btn" href="https://www.linkedin.com/in/sara-m-7ab512380" target="_blank" rel="noopener">LinkedIn</a>
+    <div class="icons">
+      <a class="icon-btn" href="mailto:saramahmoud.dev@gmail.com" data-copy="saramahmoud.dev@gmail.com" data-toast="toast_email" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+      <a class="icon-btn" href="tel:+201023874936" data-copy="01023874936" data-toast="toast_phone" aria-label="Phone" title="Phone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+      <a class="icon-btn" href="https://wa.me/201023874936" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M9.2 8.9c.2 2.4 2.5 4.7 5 5l1-1.1-1.7-.9-.8.6c-.7-.3-1.4-1-1.7-1.7l.6-.8-.9-1.7z"/></svg></a>
+      <a class="icon-btn" href="https://www.linkedin.com/in/sara-m-7ab512380" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="social">
-    <a href="https://wa.me/201023874936" target="_blank" rel="noopener">WhatsApp</a>
-    <a href="https://www.linkedin.com/in/sara-m-7ab512380" target="_blank" rel="noopener">LinkedIn</a>
+  <div class="foot-cols">
+    <div class="foot-col">
+      <h4 data-i18n="f_socials">(socials)</h4>
+      <a href="https://wa.me/201023874936" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://www.linkedin.com/in/sara-m-7ab512380" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:saramahmoud.dev@gmail.com" data-copy="saramahmoud.dev@gmail.com" data-toast="toast_email" data-i18n="f_email">Email</a>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="f_nav">(navigation)</h4>
+      <a href="#about" data-i18n="nav_about">About</a>
+      <a href="#projects" data-i18n="nav_projects">Projects</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
+    </div>
   </div>
-  <div>© <span id="yr"></span> <span data-i18n="footer_name">Sara Mahmoud</span></div>
+  <div class="copy-line">© <span id="yr"></span> <span data-i18n="footer_name">Sara Mahmoud</span></div>
 </footer>
 
 <script>
@@ -297,8 +321,8 @@
       p1_tag:'Website', p1_t:'Elebiary Portfolio', p1_d:'A bilingual (English and Arabic) portfolio website for a graphic designer, with About, Services, Brands, Process, FAQ and WhatsApp contact.', p2_tag:'Mobile', p2_t:'Project Two', p3_tag:'API', p3_t:'Project Three',
       p_d:'Short description of what it does and the tech you used.', p_link:'View project →',
       contact_h:"Let's work together", contact_p:"Have a project or an opportunity? I'd love to hear from you.",
-      c_email:'Email', c_phone:'Phone / WhatsApp', copy:'Copy', copied:'Copied ✓', wa:'Chat on WhatsApp',
-      footer_name:'Sara Mahmoud', toggle:'العربية'
+      c_email:'Email', c_phone:'Phone / WhatsApp', toast_email:'Email address copied', toast_phone:'Phone number copied', wa:'Chat on WhatsApp',
+      f_socials:'(socials)', f_nav:'(navigation)', f_email:'Email', intro_small:'Sara Mahmoud', intro_big:'Welcome to my portfolio', footer_name:'Sara Mahmoud', toggle:'العربية'
     },
     ar:{
       logo:'سارة محمود', nav_about:'نبذة عني', nav_projects:'مشاريعي', nav_contact:'تواصل معي',
@@ -311,8 +335,8 @@
       p1_tag:'موقع ويب', p1_t:'بورتفوليو الأبياري', p1_d:'موقع بورتفوليو لمصمم جرافيك بلغتين (عربي وإنجليزي)، فيه أقسام عني والخدمات والبراندات والعملية والأسئلة الشائعة وتواصل واتساب.', p2_tag:'موبايل', p2_t:'المشروع الثاني', p3_tag:'API', p3_t:'المشروع الثالث',
       p_d:'وصف قصير لما يفعله المشروع والتقنيات المستخدمة فيه.', p_link:'عرض المشروع ←',
       contact_h:'لنعمل معاً', contact_p:'عندك مشروع أو فرصة عمل؟ يسعدني أن أسمع منك.',
-      c_email:'البريد الإلكتروني', c_phone:'الهاتف / واتساب', copy:'نسخ', copied:'تم النسخ ✓', wa:'تواصل عبر واتساب',
-      footer_name:'سارة محمود', toggle:'English'
+      c_email:'البريد الإلكتروني', c_phone:'الهاتف / واتساب', toast_email:'تم نسخ البريد الإلكتروني', toast_phone:'تم نسخ رقم الهاتف', wa:'تواصل عبر واتساب',
+      f_socials:'(التواصل)', f_nav:'(التنقل)', f_email:'البريد الإلكتروني', intro_small:'سارة محمود', intro_big:'مرحباً بك في البورتفوليو الخاص بي', footer_name:'سارة محمود', toggle:'English'
     }
   };
   let lang = 'en', words = T.en.words;
@@ -330,61 +354,6 @@
   }
   $('lang').addEventListener('click', () => apply(lang === 'en' ? 'ar' : 'en'));
 
-  /* ---------- Mouse: parallax + spotlight + cursor ---------- */
-  const bg = $('bg'), rootStyle = document.documentElement.style;
-  const cursor = $('cursor'), dot = $('dot');
-  let mx = innerWidth/2, my = innerHeight/2, cx = mx, cy = my;
-  addEventListener('pointermove', e => {
-    mx = e.clientX; my = e.clientY;
-    const px = (mx / innerWidth - .5), py = (my / innerHeight - .5);
-    bg.style.transform = `translate3d(${px * -60}px, ${py * -60}px, 0) scale(1.08)`;
-    rootStyle.setProperty('--mx', mx + 'px');
-    rootStyle.setProperty('--my', my + 'px');
-    dot.style.transform = `translate(${mx}px,${my}px)`;
-    spawn(mx, my);
-  });
-  (function loop(){
-    cx += (mx - cx) * .15; cy += (my - cy) * .15;
-    cursor.style.transform = `translate(${cx}px,${cy}px)`;
-    requestAnimationFrame(loop);
-  })();
-  document.querySelectorAll('a,button,.chip,.card').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-  });
-
-  /* ---------- 3D tilt on cards ---------- */
-  document.querySelectorAll('.card').forEach(c => {
-    c.addEventListener('mousemove', e => {
-      const r = c.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-      c.style.transform = `rotateY(${(x - .5) * 14}deg) rotateX(${(.5 - y) * 14}deg) translateZ(0)`;
-      c.style.setProperty('--cx', x * 100 + '%'); c.style.setProperty('--cy', y * 100 + '%');
-    });
-    c.addEventListener('mouseleave', () => c.style.transform = '');
-  });
-
-  /* ---------- Particle trail ---------- */
-  const cv = $('fx'), ctx = cv.getContext('2d'); let parts = [];
-  const fit = () => { cv.width = innerWidth; cv.height = innerHeight; };
-  fit(); addEventListener('resize', fit);
-  function spawn(x, y){
-    for (let i = 0; i < 2; i++) parts.push({
-      x, y, vx:(Math.random()-.5)*1.4, vy:(Math.random()-.5)*1.4 - .3,
-      r:Math.random()*2.5+.8, life:1
-    });
-  }
-  (function draw(){
-    ctx.clearRect(0, 0, cv.width, cv.height);
-    parts = parts.filter(p => p.life > 0);
-    for (const p of parts){
-      p.x += p.vx; p.y += p.vy; p.life -= .02;
-      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283);
-      ctx.fillStyle = `rgba(217,179,140,${p.life * .8})`; ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  })();
-
   /* ---------- Typing effect ---------- */
   const el = $('typed'); let w = 0, i = 0, del = false, timer = null;
   function type(){
@@ -401,12 +370,16 @@
 
   /* ---------- Reveal on scroll ---------- */
   const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), {threshold:.15});
-  document.querySelectorAll('.reveal').forEach(n => io.observe(n));
+  const startReveal = () => document.querySelectorAll('.reveal').forEach(n => io.observe(n));
 
-  /* ---------- Copy buttons ---------- */
-  document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', async () => {
-    const text = btn.dataset.copy;
-    let ok = false;
+  /* ---------- Copy email / phone when tapped (the mail and call apps still open if the device has them) ---------- */
+  const toast = $('toast'); let toastTimer = null;
+  function showToast(msg){
+    toast.textContent = msg; toast.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+  document.querySelectorAll('[data-copy]').forEach(a => a.addEventListener('click', async () => {
+    const text = a.dataset.copy; let ok = false;
     try { await navigator.clipboard.writeText(text); ok = true; } catch(e){}
     if (!ok) {
       try {
@@ -414,8 +387,7 @@
         document.body.appendChild(ta); ta.select(); ok = document.execCommand('copy'); ta.remove();
       } catch(e){}
     }
-    btn.textContent = ok ? T[lang].copied : text;
-    setTimeout(() => { btn.textContent = T[lang].copy; }, 1800);
+    showToast(ok ? T[lang][a.dataset.toast] : text);
   }));
 
   /* ---------- Video follows the scroll: scroll down = forward, scroll up = backward, stop = pause ---------- */
@@ -463,9 +435,23 @@
   }
   document.addEventListener('click', e => { if (e.target.closest('a, button')) clickSound(); });
 
+  /* ---------- Welcome screen: show first, then open the site ---------- */
+  const intro = $('intro'); let introDone = false;
+  document.documentElement.style.overflow = 'hidden';
+  function endIntro(){
+    if (introDone) return; introDone = true;
+    intro.classList.add('done');
+    document.documentElement.style.overflow = '';
+    startReveal();
+    setTimeout(() => intro.remove(), 1100);
+  }
+  setTimeout(endIntro, 3000);
+  intro.addEventListener('click', endIntro);
+
   $('yr').textContent = new Date().getFullYear();
   apply(lang);
 })();
 </script>
 
-</body></html>
+</body>
+</html>

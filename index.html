@@ -135,15 +135,15 @@
   .chip:hover{background:var(--accent);color:#1a1510;transform:translateY(-3px)}
 
   /* ---------- Projects (3D tilt) ---------- */
-  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),400px));justify-content:start;gap:24px;max-width:1100px;perspective:1000px}
+  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),400px));justify-content:start;gap:24px;max-width:1100px}
   .card{
-    position:relative;transform-style:preserve-3d;transition:transform .15s ease-out;
-    overflow:hidden;
+    position:relative;overflow:hidden;
   }
-  .card h3{margin:10px 0 8px;transform:translateZ(30px)}
-  .card p{color:var(--muted);line-height:1.7;font-size:.95rem;transform:translateZ(20px)}
+  .card h3{margin:10px 0 8px}
+  .card p{color:var(--muted);line-height:1.7;font-size:.95rem}
   .tag{font-size:.75rem;letter-spacing:.15em;color:var(--accent);text-transform:uppercase}
-  .card a{display:inline-block;margin-top:16px;color:var(--accent);text-decoration:none;font-weight:600;transform:translateZ(30px)}
+  .card a{display:inline-block;margin-top:16px;color:var(--accent);text-decoration:none;font-weight:600}
+  .card a::after{content:"";position:absolute;inset:0}
 
   /* ---------- Contact ---------- */
   .contact{max-width:560px}
@@ -434,6 +434,17 @@
     } catch(err){}
   }
   document.addEventListener('click', e => { if (e.target.closest('a, button')) clickSound(); });
+
+  /* ---------- Mobile menu ---------- */
+  const burger = $('burger'), links = $('links');
+  function setMenu(open){
+    links.classList.toggle('open', open);
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burger.addEventListener('click', e => { e.stopPropagation(); setMenu(!links.classList.contains('open')); });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('click', e => { if (!e.target.closest('nav')) setMenu(false); });
 
   /* ---------- Welcome screen: show first, then open the site ---------- */
   const intro = $('intro'); let introDone = false;

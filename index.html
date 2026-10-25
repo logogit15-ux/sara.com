@@ -82,6 +82,14 @@
 
   section{overflow-x:clip;min-height:100vh;min-height:100svh;padding:150px 6vw 110px;display:flex;flex-direction:column;justify-content:center}
 
+  /* ---------- Separate pages ---------- */
+  section.view{display:none}
+  section.view.active{display:flex;animation:pageIn .6s ease both}
+  section.view:not(#home){min-height:auto;justify-content:flex-start;padding:150px 6vw 90px}
+  @keyframes pageIn{from{opacity:0}to{opacity:1}}
+  @media (max-width:760px){section.view:not(#home){padding-block:130px 70px}}
+  @media (prefers-reduced-motion:reduce){section.view.active{animation:none}}
+
   /* ---------- Hero ---------- */
   #home{align-items:flex-start;justify-content:flex-end;padding-bottom:90px}
   .tagline{max-width:420px;font-size:clamp(1.05rem,2.2vw,1.35rem);line-height:1.5;font-weight:500;color:var(--text)}
@@ -238,6 +246,7 @@
 <nav>
   <div class="nav-right">
     <ul class="links" id="links">
+      <li><a href="#home" data-i18n="nav_home">Home</a></li>
       <li><a href="#about" data-i18n="nav_about">About</a></li>
       <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
       <li><a href="#process" data-i18n="nav_process">Process</a></li>
@@ -248,14 +257,14 @@
   </div>
 </nav>
 
-<section id="home">
+<section id="home" class="view active">
   <p class="tagline reveal" data-i18n="tagline">I design and build fast, beautiful websites and interactive experiences that bring ideas to life.</p>
   <div class="cta reveal">
     <a class="pill-btn" href="#socials"><span data-i18n="cta_start">Start Your Project</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
   </div>
 </section>
 
-<section id="about" class="about">
+<section id="about" class="about view">
   <h2 class="reveal" data-i18n="about_h">About me</h2>
   <div class="about-grid">
     <div class="glass about-card reveal"><p data-i18n="about_p">I'm Sara, a Web Developer specializing in transforming ideas into modern websites. I combine the power of Front-End technologies like React, Next.js, and Tailwind CSS with the flexibility of building and customizing websites and online stores using WordPress, delivering comprehensive projects that blend high performance with responsive design.</p></div>
@@ -270,14 +279,14 @@
   </div>
 </section>
 
-<section id="projects">
+<section id="projects" class="view">
   <h2 class="reveal" data-i18n="proj_h">Projects</h2>
   <div class="projects">
     <article class="glass card reveal"><span class="tag" data-i18n="p1_tag">Website</span><h3 data-i18n="p1_t">Elebiary Portfolio</h3><p data-i18n="p1_d">A bilingual (English and Arabic) portfolio website for a graphic designer, with About, Services, Brands, Process, FAQ and WhatsApp contact.</p><a href="https://logogit15-ux.github.io/elebiary.com/" target="_blank" rel="noopener" data-i18n="p_link">View project →</a></article>
   </div>
 </section>
 
-<section id="process">
+<section id="process" class="view">
   <h2 class="reveal" data-i18n="proc_h">Process is Everything</h2>
   <p class="proc-sub reveal" data-i18n="proc_sub">A simple, clear process from the first message to launch day.</p>
   <div class="proc-grid">
@@ -316,6 +325,7 @@
     </div>
     <div class="foot-col">
       <h4 data-i18n="f_nav">(navigation)</h4>
+      <a href="#home" data-i18n="nav_home">Home</a>
       <a href="#about" data-i18n="nav_about">About</a>
       <a href="#projects" data-i18n="nav_projects">Projects</a>
       <a href="#process" data-i18n="nav_process">Process</a>
@@ -331,7 +341,7 @@
   /* ---------- Languages ---------- */
   const T = {
     en:{
-      logo:'SARA MAHMOUD', nav_about:'About', nav_projects:'Projects', nav_contact:'Contact',
+      logo:'SARA MAHMOUD', nav_home:'Home', nav_about:'About', nav_projects:'Projects', nav_contact:'Contact',
       hello:"Hello, I'm", tagline:'I design and build fast, beautiful websites and interactive experiences that bring ideas to life.', cta_start:'Start Your Project', name:'Sara <span>Mahmoud</span>', build:'I build',
       words:['modern websites','clean, fast code','interactive experiences'],
       cta1:'View my work', cta2:'Get in touch',
@@ -346,7 +356,7 @@
       intro_small:'Sara Mahmoud', intro_big:'Welcome to my portfolio', footer_name:'Sara Mahmoud', toggle:'العربية'
     },
     ar:{
-      logo:'سارة محمود', nav_about:'نبذة عني', nav_projects:'مشاريعي', nav_contact:'تواصل معي',
+      logo:'سارة محمود', nav_home:'الرئيسية', nav_about:'نبذة عني', nav_projects:'مشاريعي', nav_contact:'تواصل معي',
       hello:'أهلاً، أنا', tagline:'أصمم وأبني مواقع سريعة وجذابة وتجارب تفاعلية تحوّل الأفكار إلى واقع.', cta_start:'ابدأ مشروعك', name:'سارة <span>محمود</span>', build:'أبني',
       words:['مواقع ويب حديثة','كود نظيف وسريع','تجارب تفاعلية'],
       cta1:'شاهد أعمالي', cta2:'تواصل معي',
@@ -430,11 +440,16 @@
   vid.muted = true;
   let tgt = 0, cur = 0;
   const dur = () => (vid.duration && isFinite(vid.duration)) ? vid.duration : 8;
+  const VIEWS = ['home', 'about', 'projects', 'process'];
+  let viewIdx = 0;
   function scrollProgress(){
     const max = document.documentElement.scrollHeight - innerHeight;
     return max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
   }
-  function onScroll(){ tgt = scrollProgress() * dur() * 0.995; }
+  function onScroll(){
+    const p = (viewIdx + scrollProgress()) / VIEWS.length;
+    tgt = Math.min(1, p) * dur() * 0.995;
+  }
   addEventListener('scroll', onScroll, { passive: true });
   vid.addEventListener('loadedmetadata', () => { try { vid.pause(); } catch(err){} onScroll(); });
   (function scrubLoop(){
@@ -478,6 +493,26 @@
   burger.addEventListener('click', e => { e.stopPropagation(); setMenu(!links.classList.contains('open')); });
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
   document.addEventListener('click', e => { if (!e.target.closest('nav')) setMenu(false); });
+
+  /* ---------- Pages: every menu item opens its own page ---------- */
+  const viewEls = {}; VIEWS.forEach(v => viewEls[v] = $(v));
+  function showView(id, updateHash){
+    if (!viewEls[id]) id = 'home';
+    VIEWS.forEach(v => viewEls[v].classList.toggle('active', v === id));
+    viewIdx = VIEWS.indexOf(id);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    onScroll();
+    if (updateHash) { try { history.replaceState(null, '', '#' + id); } catch(e){} }
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href').slice(1);
+    if (viewEls[id]) { e.preventDefault(); showView(id, true); }
+    else if (id === 'socials') { e.preventDefault(); $('socials').scrollIntoView({ behavior: 'smooth' }); }
+  });
+  addEventListener('hashchange', () => showView(location.hash.slice(1), false));
+  showView(VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'home', false);
 
   /* ---------- Welcome screen: show first, then open the site ---------- */
   const intro = $('intro'); let introDone = false;

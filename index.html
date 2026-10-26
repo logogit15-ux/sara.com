@@ -16,8 +16,7 @@
     --glass:rgba(20,18,16,.45);
     --border:rgba(255,255,255,.14);
   }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
+  *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
   body{
     font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
@@ -49,7 +48,7 @@
     position:fixed; z-index:50;
     top:calc(14px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%);
     width:calc(100% - 28px); max-width:1100px;
-    display:flex; justify-content:flex-end; align-items:center; gap:12px;
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
     padding:10px 12px 10px 24px;
     border-radius:999px;
     background:rgba(217,179,140,.22);
@@ -60,10 +59,12 @@
   .nav-right{display:flex;align-items:center;gap:20px}
   .links{display:flex;gap:24px;list-style:none}
   nav a{color:var(--text);text-decoration:none;font-size:.95rem;opacity:.9;transition:.2s}
+  nav a:hover{color:var(--accent);opacity:1}
   .lang{
     font:inherit;font-size:.85rem;font-weight:600;color:var(--text);background:rgba(0,0,0,.25);
     border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:7px 14px;cursor:pointer;transition:.2s;
   }
+  .lang:hover{background:var(--accent);color:#1a1510}
   .burger{
     display:none;width:42px;height:42px;border-radius:50%;border:0;background:rgba(0,0,0,.25);
     cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px;
@@ -86,54 +87,10 @@
     .links li a{display:block;padding:14px 18px;font-size:1rem}
   }
 
-  section{overflow-x:clip;min-height:100vh;min-height:100svh;padding:150px 6vw 110px;display:flex;flex-direction:column;justify-content:center}
-
-  /* ---------- Separate pages ---------- */
-  section.view{display:none}
-  section.view.active{display:flex;animation:pageIn .6s ease both}
-  section.view:not(#home){min-height:auto;justify-content:flex-start;padding:150px 6vw 90px}
-  @keyframes pageIn{from{opacity:0}to{opacity:1}}
-  @media (max-width:760px){section.view:not(#home){padding-block:130px 70px}}
-  @media (prefers-reduced-motion:reduce){section.view.active{animation:none}}
-
-  /* ---------- Infinite marquee (Home) ---------- */
-  .marquee{align-self:stretch;margin:48px -6vw 0;background:transparent;overflow:hidden;padding:12px 0}
-  .marquee-track{display:flex;width:max-content;animation:marquee 32s linear infinite}
-  .marquee-half{display:flex;flex-shrink:0}
-  .marquee-pill{display:inline-flex;align-items:center;gap:8px;margin-right:12px;padding:10px 20px;border-radius:9999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);color:#d4d4d4;font-size:.95rem;white-space:nowrap}
-  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
-
-  /* ---------- Start Your Project chat ---------- */
-  #chat{position:fixed;inset:0;z-index:120;display:none;align-items:flex-end;justify-content:flex-end;padding:20px;background:rgba(0,0,0,.5);backdrop-filter:blur(4px)}
-  #chat.open{display:flex}
-  .chat-panel{width:min(380px,100%);max-height:min(560px,calc(100svh - 40px));display:flex;flex-direction:column;background:rgba(18,16,14,.95);border:1px solid var(--border);border-radius:24px;overflow:hidden;animation:chatUp .35s ease}
-  .chat-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--border)}
-  .chat-avatar{width:40px;height:40px;border-radius:50%;background:var(--accent);color:#1a1510;display:flex;align-items:center;justify-content:center;font-weight:800}
-  .chat-who{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
-  .chat-who b{font-size:1rem}
-  .chat-who span{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:.8rem}
-  .chat-who span::before{content:"";width:8px;height:8px;border-radius:50%;background:#3ecf6e}
-  .chat-x{width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:var(--text);font-size:1.2rem;line-height:1;cursor:pointer}
-  .chat-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:10px;min-height:230px}
-  .msg{max-width:84%;padding:10px 14px;border-radius:18px;line-height:1.5;font-size:.95rem;animation:msgIn .3s ease}
-  .msg.bot{align-self:flex-start;background:rgba(255,255,255,.1);border-end-start-radius:6px}
-  .msg.me{align-self:flex-end;background:var(--accent);color:#1a1510;border-end-end-radius:6px}
-  .msg.typing{display:flex;gap:5px;padding:14px 16px}
-  .msg.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:dot 1s infinite ease-in-out}
-  .msg.typing span:nth-child(2){animation-delay:.15s}
-  .msg.typing span:nth-child(3){animation-delay:.3s}
-  .chat-foot{padding:6px 18px 18px}
-  .chat-foot a{display:none;text-align:center;width:100%}
-  .chat-panel.done .chat-foot a{display:block}
-  @keyframes chatUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-  @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-  @keyframes dot{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-4px)}}
-  @media (max-width:760px){#chat{padding:12px;justify-content:center}}
-  @media (prefers-reduced-motion:reduce){.chat-panel,.msg{animation:none}}
+  section{min-height:100vh;min-height:100svh;padding:120px 6vw 80px;display:flex;flex-direction:column;justify-content:center}
 
   /* ---------- Hero ---------- */
-  #home{min-height:100vh;align-items:flex-start;justify-content:flex-end;padding-bottom:calc(36px + env(safe-area-inset-bottom,0px))}
+  #home{align-items:flex-start;justify-content:flex-end;padding-bottom:64px}
   .tagline{max-width:420px;font-size:clamp(1.05rem,2.2vw,1.35rem);line-height:1.5;font-weight:500;color:var(--text)}
   .cta{margin:22px 0 clamp(28px,6vw,56px)}
   .pill-btn{
@@ -147,8 +104,9 @@
   }
   .pill-btn .arrow svg{width:18px;height:18px}
   html[dir="rtl"] .pill-btn{padding:8px 24px 8px 8px}
+  .pill-btn:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 10px 30px rgba(217,179,140,.25)}
+  .pill-btn:hover .arrow{background:var(--accent);transform:rotate(45deg)}
   .hello{color:var(--accent);letter-spacing:.3em;text-transform:uppercase;font-size:.85rem;margin-bottom:10px}
-  .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   h1{font-size:clamp(2.6rem,8vw,6rem);line-height:1.1;font-weight:800;max-width:900px}
   h1 span{color:var(--accent)}
   .role{margin-top:14px;font-size:clamp(1.1rem,2.5vw,1.6rem);color:var(--muted);min-height:2em}
@@ -159,23 +117,25 @@
     border:1px solid var(--accent);color:var(--accent);transition:.25s;display:inline-block;
   }
   .btn.fill{background:var(--accent);color:#1a1510}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(217,179,140,.3)}
 
-  h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:48px;text-align:center}
-  .about-card p{font-size:1.05rem}
+  h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:36px}
+  .about-card{min-height:180px}
 
   /* ---------- Glass cards ---------- */
   .glass{
     background:var(--glass);border:1px solid var(--border);border-radius:20px;
     backdrop-filter:blur(14px);padding:28px;
   }
-  .about-grid{display:grid;grid-template-columns:1fr;gap:20px;width:100%;max-width:760px;margin-inline:auto}
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;max-width:1000px}
   @media(max-width:760px){.about-grid{grid-template-columns:1fr}}
   .about p{color:var(--muted);line-height:1.8}
   .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
   .chip{padding:8px 16px;border-radius:30px;border:1px solid var(--border);background:rgba(255,255,255,.06);font-size:.9rem;transition:.2s}
+  .chip:hover{background:var(--accent);color:#1a1510;transform:translateY(-3px)}
 
   /* ---------- Projects (3D tilt) ---------- */
-  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),400px));justify-content:center;gap:24px;width:100%;max-width:1100px;margin-inline:auto}
+  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),400px));justify-content:start;gap:24px;max-width:1100px}
   .card{
     position:relative;overflow:hidden;
   }
@@ -184,31 +144,6 @@
   .tag{font-size:.75rem;letter-spacing:.15em;color:var(--accent);text-transform:uppercase}
   .card a{display:inline-block;margin-top:16px;color:var(--accent);text-decoration:none;font-weight:600}
   .card a::after{content:"";position:absolute;inset:0}
-
-  /* ---------- Services (under the marquee) ---------- */
-  #services h2{margin-bottom:28px}
-  .svc-cta{display:flex;justify-content:center;margin:0 0 44px}
-  .svc-grid{display:grid;grid-template-columns:1fr;gap:20px;width:100%;max-width:560px;margin-inline:auto}
-  .svc-card{display:flex;flex-direction:column;gap:14px;padding:28px}
-  .svc-head{display:flex;align-items:center;gap:14px}
-  .svc-head svg{width:26px;height:26px;flex-shrink:0;fill:none;stroke:var(--text);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-  .svc-head h3{font-size:1.05rem}
-  .svc-card p{color:var(--muted);line-height:1.7;font-size:.95rem}
-
-  /* ---------- Process ---------- */
-  #process h2{margin-bottom:12px}
-  .proc-sub{text-align:center;color:var(--muted);max-width:520px;margin:0 auto 48px;line-height:1.6}
-  .proc-grid{display:grid;grid-template-columns:1fr;gap:20px;width:100%;max-width:560px;margin-inline:auto}
-  .proc-card{display:flex;flex-direction:column;gap:14px;padding:28px}
-  .proc-card svg{width:30px;height:30px;fill:none;stroke:var(--text);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:22px}
-  .proc-card h3{font-size:1.05rem}
-  .proc-card p{color:var(--muted);line-height:1.7;font-size:.95rem}
-  .proc-card hr{border:0;border-top:1px solid var(--border);width:100%;margin:auto 0 6px;padding-top:8px}
-  .step-pill{align-self:flex-start;padding:9px 18px;border-radius:30px;border:1px solid var(--border);background:rgba(255,255,255,.06);font-size:.9rem}
-  .proc-note{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;max-width:560px;width:100%;margin:28px auto 0;padding:24px}
-  .proc-note b{display:flex;align-items:center;gap:10px;font-size:1rem}
-  .proc-note svg{width:24px;height:24px;fill:none;stroke:var(--text);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-  .proc-note span{color:var(--muted);font-size:.9rem}
 
   /* ---------- Contact ---------- */
   .contact{max-width:560px}
@@ -221,6 +156,7 @@
     transition:.25s;
   }
   .icon-btn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .icon-btn:hover{background:var(--accent);color:#1a1510;border-color:var(--accent);transform:translateY(-4px);box-shadow:0 10px 26px rgba(217,179,140,.3)}
   .icons.sm{justify-content:center}
   .icons.sm .icon-btn{width:46px;height:46px}
   .icons.sm .icon-btn svg{width:20px;height:20px}
@@ -230,22 +166,16 @@
     border:1px solid var(--accent);font-size:.9rem;opacity:0;pointer-events:none;transition:.3s;
   }
   .toast.show{opacity:1;transform:translate(-50%,0)}
-  .contact-col{flex:1 1 300px;max-width:460px;min-width:0}
-  .cform{display:flex;flex-direction:column;gap:12px;text-align:start;width:100%}
-  .cform input,.cform textarea{width:100%;font:inherit;color:var(--text);background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:14px;padding:14px 16px;outline:none;transition:.2s}
-  .cform input:focus,.cform textarea:focus{border-color:var(--accent)}
-  .cform textarea{min-height:130px;resize:vertical}
-  .cform .hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
-  .cform button{align-self:flex-start;font:inherit;font-weight:700;cursor:pointer;border:0;border-radius:999px;padding:13px 34px;background:var(--accent);color:#1a1510;transition:.2s}
-  .cform button:disabled{opacity:.6;cursor:wait}
-  footer{scroll-margin-top:40px;padding:48px 6vw calc(36px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.85rem;display:flex;flex-direction:column;gap:40px}
+  footer{padding:48px 6vw calc(36px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.85rem;display:flex;flex-direction:column;gap:40px}
   .foot-card{max-width:560px;padding:24px;text-align:center}
   .foot-card b{display:block;color:var(--text);font-size:1rem;margin-bottom:6px}
   .foot-cols{display:flex;gap:clamp(40px,12vw,120px);flex-wrap:wrap}
   .foot-col{display:flex;flex-direction:column;gap:12px}
   .foot-col h4{font-weight:400;color:var(--muted);font-size:.9rem}
   .foot-col a{color:var(--text);text-decoration:none;font-weight:700;font-size:1.05rem;transition:.2s;width:fit-content}
-  .copy-line{color:var(--muted);font-size:.85rem;text-align:center;width:100%;margin-top:28px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12)}
+  .foot-col a:hover{color:var(--accent);transform:translateX(4px)}
+  html[dir="rtl"] .foot-col a:hover{transform:translateX(-4px)}
+  .copy-line{color:var(--muted);font-size:.8rem}
 
 
   /* ---------- Phones & portrait screens ---------- */
@@ -255,8 +185,8 @@
   @media (max-width:760px){
     .glass{backdrop-filter:blur(8px);padding:22px}
     nav{backdrop-filter:blur(10px)}
-    section{padding-block:130px 90px}
-    #home{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}
+    section{padding-block:110px 64px}
+    #home{padding-bottom:48px}
     .contact{max-width:100%}
   }
   @media (max-width:380px){
@@ -283,11 +213,8 @@
   @media (hover:none){#intro{cursor:auto}}
   @media (prefers-reduced-motion:reduce){#intro .i-small,#intro .i-big{animation:none;opacity:1}#intro .i-line{animation:none;width:160px}}
 
-  .reveal{opacity:0;transform:translateY(60px) scale(.96);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
-  /* cards slide in from the side, alternating left and right */
-  .glass.reveal{transform:translateX(-80px)}
-  .glass.reveal:nth-child(even){transform:translateX(80px)}
-  .reveal.in,.glass.reveal.in,.glass.reveal:nth-child(even).in{opacity:1;transform:none}
+  .reveal{opacity:0;transform:translateY(40px);transition:1s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){
     .reveal{opacity:1;transform:none;transition:none}
     .bg-video{display:none}
@@ -296,7 +223,7 @@
 
 <div id="intro" role="status" aria-live="polite">
   <p class="i-small" data-i18n="intro_small">Sara Mahmoud</p>
-  <div class="i-big" data-i18n="intro_big">Welcome to my portfolio</div>
+  <h1 class="i-big" data-i18n="intro_big">Welcome to my portfolio</h1>
   <span class="i-line"></span>
 </div>
 
@@ -304,107 +231,62 @@
 <div class="bg-overlay" id="overlay"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<h1 class="sr-only" data-i18n="site_h1">Sara Mahmoud – Web Developer Portfolio</h1>
 <nav>
+  <a class="logo" href="#home" data-i18n="logo">SARA MAHMOUD</a>
   <div class="nav-right">
     <ul class="links" id="links">
-      <li><a href="#home" data-i18n="nav_home">Home</a></li>
       <li><a href="#about" data-i18n="nav_about">About</a></li>
-      <li><a href="#services" data-i18n="nav_services">Services</a></li>
       <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
-      <li><a href="#process" data-i18n="nav_process">Process</a></li>
-      <li><a href="#socials" data-i18n="nav_contact">Contact</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
     </ul>
     <button class="lang" id="lang" type="button" aria-label="Switch language">العربية</button>
     <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
   </div>
 </nav>
 
-<section id="home" class="view active">
+<section id="home">
   <p class="tagline reveal" data-i18n="tagline">I design and build fast, beautiful websites and interactive experiences that bring ideas to life.</p>
   <div class="cta reveal">
-    <a class="pill-btn js-start" id="startBtn" href="https://wa.me/201023874936" target="_blank" rel="noopener"><span data-i18n="cta_start">Start Your Project</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+    <a class="pill-btn" href="#contact"><span data-i18n="cta_start">Start Your Project</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
   </div>
 </section>
 
-<section id="about" class="about view">
+<section id="about" class="about">
   <h2 class="reveal" data-i18n="about_h">About me</h2>
   <div class="about-grid">
-    <div class="glass about-card reveal"><p data-i18n="about_p">I'm Sara, a Web Developer specializing in transforming ideas into modern websites. I combine the power of Front-End technologies like React, Next.js, and Tailwind CSS with the flexibility of building and customizing websites and online stores using WordPress, delivering comprehensive projects that blend high performance with responsive design.</p></div>
+    <div class="glass about-card reveal"></div>
     <div class="glass reveal">
       <p style="margin-bottom:14px;color:var(--text);font-weight:600" data-i18n="skills">Skills</p>
       <div class="chips">
         <span class="chip">HTML</span><span class="chip">CSS</span>
         <span class="chip">JavaScript</span><span class="chip">React</span>
-        <span class="chip">Next.js</span><span class="chip">Tailwind CSS</span><span class="chip">WordPress</span>
+        <span class="chip">Node.js</span><span class="chip">Git</span>
       </div>
     </div>
   </div>
 </section>
 
-<section id="services" class="view">
-  <h2 class="reveal" data-i18n="svc_h">How I Can Help You</h2>
-  <div class="svc-cta reveal">
-    <a class="pill-btn js-start" href="https://wa.me/201023874936" target="_blank" rel="noopener"><span data-i18n="svc_btn">Let's Talk</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
-  </div>
-  <div class="svc-grid">
-    <article class="glass svc-card reveal">
-      <div class="svc-head"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><h3 data-i18n="sv1_t">T1</h3></div>
-      <p data-i18n="sv1_d">D1</p>
-    </article>
-    <article class="glass svc-card reveal">
-      <div class="svc-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><h3 data-i18n="sv2_t">T2</h3></div>
-      <p data-i18n="sv2_d">D2</p>
-    </article>
-    <article class="glass svc-card reveal">
-      <div class="svc-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg><h3 data-i18n="sv3_t">T3</h3></div>
-      <p data-i18n="sv3_d">D3</p>
-    </article>
-    <article class="glass svc-card reveal">
-      <div class="svc-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><h3 data-i18n="sv4_t">T4</h3></div>
-      <p data-i18n="sv4_d">D4</p>
-    </article>
-  </div>
-  <div class="marquee" dir="ltr" aria-label="Services"><div class="marquee-track" id="marqueeTrack"></div></div>
-</section>
-
-<section id="projects" class="view">
+<section id="projects">
   <h2 class="reveal" data-i18n="proj_h">Projects</h2>
   <div class="projects">
     <article class="glass card reveal"><span class="tag" data-i18n="p1_tag">Website</span><h3 data-i18n="p1_t">Elebiary Portfolio</h3><p data-i18n="p1_d">A bilingual (English and Arabic) portfolio website for a graphic designer, with About, Services, Brands, Process, FAQ and WhatsApp contact.</p><a href="https://logogit15-ux.github.io/elebiary.com/" target="_blank" rel="noopener" data-i18n="p_link">View project →</a></article>
   </div>
 </section>
 
-<section id="process" class="view">
-  <h2 class="reveal" data-i18n="proc_h">Process is Everything</h2>
-  <p class="proc-sub reveal" data-i18n="proc_sub">A simple, clear process from the first message to launch day.</p>
-  <div class="proc-grid">
-    <article class="glass proc-card reveal">
-      <h3 data-i18n="s1_t">Let's Get in Touch</h3>
-      <p data-i18n="s1_d">Message me on WhatsApp or email and tell me about your project, your goals and your ideas, so we can agree on what to build.</p>
-      <hr>
-      <span class="step-pill" data-i18n="step1">Step 1</span>
-    </article>
-    <article class="glass proc-card reveal">
-      <h3 data-i18n="s2_t">Start Development</h3>
-      <p data-i18n="s2_d">I turn the plan into a fast, responsive website or online store, built with React, Next.js, Tailwind CSS or WordPress.</p>
-      <hr>
-      <span class="step-pill" data-i18n="step2">Step 2</span>
-    </article>
-    <article class="glass proc-card reveal">
-      <h3 data-i18n="s3_t">Launch and Hand Over</h3>
-      <p data-i18n="s3_d">You receive a tested, polished website that is ready to go live, with support after launch.</p>
-      <hr>
-      <span class="step-pill" data-i18n="step3">Step 3</span>
-    </article>
-  </div>
-  <div class="glass proc-note reveal">
-    <b data-i18n="note_t">I'm with you at every step</b>
-    <span data-i18n="note_d">Working alongside you from idea to launch for a smooth experience.</span>
+<section id="contact">
+  <h2 class="reveal" data-i18n="contact_h">Let's work together</h2>
+  <div class="glass contact reveal">
+    <p data-i18n="contact_p">Have a project or an opportunity? I'd love to hear from you.</p>
+    <div class="icons">
+      <a class="icon-btn" href="mailto:saramahmoud.dev@gmail.com" data-copy="saramahmoud.dev@gmail.com" data-toast="toast_email" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+      <a class="icon-btn" href="tel:+201023874936" data-copy="01023874936" data-toast="toast_phone" aria-label="Phone" title="Phone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+      <a class="icon-btn" href="https://wa.me/201023874936" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M9.2 8.9c.2 2.4 2.5 4.7 5 5l1-1.1-1.7-.9-.8.6c-.7-.3-1.4-1-1.7-1.7l.6-.8-.9-1.7z"/></svg></a>
+      <a class="icon-btn" href="https://www.linkedin.com/in/sara-m-7ab512380" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+    </div>
   </div>
 </section>
 
-<footer id="socials">
+<footer>
   <div class="foot-cols">
     <div class="foot-col">
       <h4 data-i18n="f_socials">(socials)</h4>
@@ -414,37 +296,13 @@
     </div>
     <div class="foot-col">
       <h4 data-i18n="f_nav">(navigation)</h4>
-      <a href="#home" data-i18n="nav_home">Home</a>
       <a href="#about" data-i18n="nav_about">About</a>
-      <a href="#services" data-i18n="nav_services">Services</a>
       <a href="#projects" data-i18n="nav_projects">Projects</a>
-      <a href="#process" data-i18n="nav_process">Process</a>
-    </div>
-    <div class="foot-col contact-col">
-      <h4 data-i18n="ct_h">Get in Touch</h4>
-      <form class="cform" id="cform" novalidate>
-        <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <input type="text" name="name" required data-i18n-ph="ct_name" placeholder="Your name" autocomplete="name">
-        <input type="email" name="email" required data-i18n-ph="ct_email" placeholder="Your email" autocomplete="email">
-        <textarea name="message" required data-i18n-ph="ct_msg" placeholder="Your message"></textarea>
-        <button type="submit" id="cbtn" data-i18n="ct_send">Send Message</button>
-      </form>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
     </div>
   </div>
-  <div class="copy-line" data-i18n="copyright">© 2026 All rights reserved</div>
+  <div class="copy-line">© <span id="yr"></span> <span data-i18n="footer_name">Sara Mahmoud</span></div>
 </footer>
-
-<div id="chat" role="dialog" aria-modal="true" aria-labelledby="chatName">
-  <div class="chat-panel" id="chatPanel">
-    <div class="chat-head">
-      <div class="chat-avatar" id="chatAvatar">S</div>
-      <div class="chat-who"><b id="chatName">Sara Mahmoud</b><span id="chatStatus">Online now</span></div>
-      <button class="chat-x" id="chatClose" type="button" aria-label="Close">&times;</button>
-    </div>
-    <div class="chat-body" id="chatBody"></div>
-    <div class="chat-foot"><a class="btn fill" id="chatWa" href="https://wa.me/201023874936" target="_blank" rel="noopener">Continue on WhatsApp</a></div>
-  </div>
-</div>
 
 <script>
 (() => {
@@ -453,61 +311,34 @@
   /* ---------- Languages ---------- */
   const T = {
     en:{
-      logo:'SARA MAHMOUD', svc_h:'How I Can Help You', svc_btn:"Let's Talk",
-      sv1_t:'Website Design & Development', sv1_d:'Fast, responsive websites built with React, Next.js and Tailwind CSS, designed around your brand and your goals.',
-      sv2_t:'WordPress & Online Stores', sv2_d:'Custom WordPress websites and online stores, built and adjusted to fit the way your business sells.',
-      sv3_t:'Speed & SEO', sv3_d:'Sites that load quickly and are built to be found, so more of the right people reach you.',
-      sv4_t:'WhatsApp Bots & Landing Pages', sv4_d:'Automated WhatsApp replies and focused landing pages that turn visitors into customers.',
-      nav_home:'Home', nav_services:'Services', ct_h:'Get in Touch', ct_name:'Your name', ct_email:'Your email', ct_msg:'Your message', ct_send:'Send Message', ct_ok:'Message sent ✓', ct_err:'Please fill in all fields correctly', ct_fail:'Opening your email app to send it…',  site_h1:'Sara Mahmoud – Web Developer Portfolio', copyright:'© 2026 All rights reserved', chat_name:'Sara Mahmoud', chat_status:'Online now', c1:'Hi! 👋 Glad you stopped by.', c2:"I'm Sara. Tell me about your project and I'll help you build it.", c_user:"I'd like to start a project", c3:'Great! Taking you to WhatsApp so we can keep talking...', c_btn:'Continue on WhatsApp', wa_text:"Hi Sara, I'd like to start a project.", nav_about:'About', nav_projects:'Projects', nav_contact:'Contact',
+      logo:'SARA MAHMOUD', nav_about:'About', nav_projects:'Projects', nav_contact:'Contact',
       hello:"Hello, I'm", tagline:'I design and build fast, beautiful websites and interactive experiences that bring ideas to life.', cta_start:'Start Your Project', name:'Sara <span>Mahmoud</span>', build:'I build',
       words:['modern websites','clean, fast code','interactive experiences'],
       cta1:'View my work', cta2:'Get in touch',
       about_h:'About me',
-      about_p:"I'm Sara, a Web Developer specializing in transforming ideas into modern websites. I combine the power of Front-End technologies like React, Next.js, and Tailwind CSS with the flexibility of building and customizing websites and online stores using WordPress, delivering comprehensive projects that blend high performance with responsive design.",
+      about_p:"Write a short intro about yourself here: who you are, what kind of software you enjoy building, and what you're looking for next. Keep it to 3–4 sentences.",
       skills:'Skills', proj_h:'Projects',
       p1_tag:'Website', p1_t:'Elebiary Portfolio', p1_d:'A bilingual (English and Arabic) portfolio website for a graphic designer, with About, Services, Brands, Process, FAQ and WhatsApp contact.', p2_tag:'Mobile', p2_t:'Project Two', p3_tag:'API', p3_t:'Project Three',
       p_d:'Short description of what it does and the tech you used.', p_link:'View project →',
       contact_h:"Let's work together", contact_p:"Have a project or an opportunity? I'd love to hear from you.",
       c_email:'Email', c_phone:'Phone / WhatsApp', toast_email:'Email address copied', toast_phone:'Phone number copied', wa:'Chat on WhatsApp',
-      f_socials:'(socials)', f_nav:'(navigation)', f_email:'Email', proc_h:'Process is Everything', proc_sub:'A simple, clear process from the first message to launch day.', nav_process:'Process', s1_t:"Let's Get in Touch", s1_d:'Message me on WhatsApp or email and tell me about your project, your goals and your ideas, so we can agree on what to build.', s2_t:'Start Development', s2_d:'I turn the plan into a fast, responsive website or online store, built with React, Next.js, Tailwind CSS or WordPress.', s3_t:'Launch and Hand Over', s3_d:'You receive a tested, polished website that is ready to go live, with support after launch.', step1:'Step 1', step2:'Step 2', step3:'Step 3', note_t:"I'm with you at every step", note_d:'Working alongside you from idea to launch for a smooth experience.',
-      intro_small:'Sara Mahmoud', intro_big:'Welcome to my portfolio', footer_name:'Sara Mahmoud', toggle:'العربية'
+      f_socials:'(socials)', f_nav:'(navigation)', f_email:'Email', intro_small:'Sara Mahmoud', intro_big:'Welcome to my portfolio', footer_name:'Sara Mahmoud', toggle:'العربية'
     },
     ar:{
-      logo:'سارة محمود', svc_h:'كيف يمكنني مساعدتك', svc_btn:'لنتحدث',
-      sv1_t:'تصميم وتطوير المواقع', sv1_d:'مواقع سريعة ومتجاوبة مبنية بـ React وNext.js وTailwind CSS، ومصممة حسب هويتك وأهدافك.',
-      sv2_t:'ووردبريس والمتاجر الإلكترونية', sv2_d:'مواقع ووردبريس ومتاجر إلكترونية مخصصة، تُبنى وتُعدَّل لتناسب طريقة بيعك.',
-      sv3_t:'السرعة وتحسين محركات البحث', sv3_d:'مواقع تفتح بسرعة ومبنية لتظهر في نتائج البحث، فيصل إليك المزيد من العملاء المناسبين.',
-      sv4_t:'بوتات واتساب وصفحات هبوط', sv4_d:'ردود واتساب تلقائية وصفحات هبوط مركّزة تحوّل الزوار إلى عملاء.',
-      nav_home:'الرئيسية', nav_services:'خدماتي', ct_h:'تواصل معي', ct_name:'اسمك', ct_email:'بريدك الإلكتروني', ct_msg:'رسالتك', ct_send:'إرسال الرسالة', ct_ok:'تم إرسال الرسالة ✓', ct_err:'من فضلك املأ كل الحقول بشكل صحيح', ct_fail:'بنفتحلك تطبيق الإيميل لإرسالها…',  site_h1:'سارة محمود – مطورة ويب | البورتفوليو', copyright:'© 2026 جميع الحقوق محفوظة', chat_name:'سارة محمود', chat_status:'متصلة الآن', c1:'أهلاً! 👋 سعيدة بزيارتك.', c2:'أنا سارة. احكِ لي عن مشروعك وأساعدك في تنفيذه.', c_user:'أريد بدء مشروع جديد', c3:'رائع! سأنقلك إلى واتساب لنكمل الحديث...', c_btn:'تابع على واتساب', wa_text:'مرحباً سارة، أريد بدء مشروع.', nav_about:'نبذة عني', nav_projects:'مشاريعي', nav_contact:'تواصل معي',
+      logo:'سارة محمود', nav_about:'نبذة عني', nav_projects:'مشاريعي', nav_contact:'تواصل معي',
       hello:'أهلاً، أنا', tagline:'أصمم وأبني مواقع سريعة وجذابة وتجارب تفاعلية تحوّل الأفكار إلى واقع.', cta_start:'ابدأ مشروعك', name:'سارة <span>محمود</span>', build:'أبني',
       words:['مواقع ويب حديثة','كود نظيف وسريع','تجارب تفاعلية'],
       cta1:'شاهد أعمالي', cta2:'تواصل معي',
       about_h:'نبذة عني',
-      about_p:'أنا سارة، مطوّرة ويب متخصصة في تحويل الأفكار إلى مواقع حديثة. أجمع بين قوة تقنيات الواجهة الأمامية مثل React وNext.js وTailwind CSS ومرونة بناء المواقع والمتاجر الإلكترونية وتخصيصها باستخدام WordPress، لأقدّم مشاريع متكاملة تجمع بين الأداء العالي والتصميم المتجاوب.',
+      about_p:'اكتبي هنا مقدمة قصيرة عن نفسك: من أنتِ، وأي نوع من البرمجيات تحبين بناءه، وما الذي تبحثين عنه الآن. يكفي من ٣ إلى ٤ جمل.',
       skills:'المهارات', proj_h:'مشاريعي',
       p1_tag:'موقع ويب', p1_t:'بورتفوليو الأبياري', p1_d:'موقع بورتفوليو لمصمم جرافيك بلغتين (عربي وإنجليزي)، فيه أقسام عني والخدمات والبراندات والعملية والأسئلة الشائعة وتواصل واتساب.', p2_tag:'موبايل', p2_t:'المشروع الثاني', p3_tag:'API', p3_t:'المشروع الثالث',
       p_d:'وصف قصير لما يفعله المشروع والتقنيات المستخدمة فيه.', p_link:'عرض المشروع ←',
       contact_h:'لنعمل معاً', contact_p:'عندك مشروع أو فرصة عمل؟ يسعدني أن أسمع منك.',
       c_email:'البريد الإلكتروني', c_phone:'الهاتف / واتساب', toast_email:'تم نسخ البريد الإلكتروني', toast_phone:'تم نسخ رقم الهاتف', wa:'تواصل عبر واتساب',
-      f_socials:'(التواصل)', f_nav:'(التنقل)', f_email:'البريد الإلكتروني', proc_h:'آلية العمل هي كل شيء', proc_sub:'خطوات بسيطة وواضحة من أول رسالة حتى يوم الإطلاق.', nav_process:'آلية العمل', s1_t:'لنتواصل', s1_d:'راسلني على واتساب أو البريد الإلكتروني وأخبرني عن مشروعك وأهدافك وأفكارك، لنتفق على ما سنبنيه.', s2_t:'بدء التطوير', s2_d:'أحوّل الخطة إلى موقع أو متجر إلكتروني سريع ومتجاوب، باستخدام React وNext.js وTailwind CSS أو WordPress.', s3_t:'الإطلاق والتسليم', s3_d:'تستلم موقعاً مختبراً ومتقناً وجاهزاً للإطلاق، مع دعم بعد التسليم.', step1:'الخطوة ١', step2:'الخطوة ٢', step3:'الخطوة ٣', note_t:'معك في كل خطوة', note_d:'بجانبك من الفكرة حتى الإطلاق لتجربة سلسة.',
-      intro_small:'سارة محمود', intro_big:'مرحباً بك في البورتفوليو الخاص بي', footer_name:'سارة محمود', toggle:'English'
+      f_socials:'(التواصل)', f_nav:'(التنقل)', f_email:'البريد الإلكتروني', intro_small:'سارة محمود', intro_big:'مرحباً بك في البورتفوليو الخاص بي', footer_name:'سارة محمود', toggle:'English'
     }
   };
-  /* ---------- Marquee items (rendered twice for a seamless loop) ---------- */
-  const MARQUEE = [
-    { en:'WhatsApp Bots', ar:'بوتات واتساب',   icon:'💬' },
-    { en:'Landing Pages', ar:'صفحات هبوط',     icon:'🪟' },
-    { en:'Optimization',  ar:'تحسين الأداء',    icon:'⚡' },
-    { en:'Custom Code',   ar:'كود مخصص',       icon:'</>' },
-    { en:'SEO',           ar:'تحسين محركات البحث', icon:'🔍' },
-    { en:'Framer',        ar:'Framer',         icon:'🎨' }
-  ];
-  function renderMarquee(l){
-    const half = (hidden) => '<div class="marquee-half"' + (hidden ? ' aria-hidden="true"' : '') + '>' +
-      MARQUEE.map(m => '<span class="marquee-pill"><span>' + m.icon.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</span><span>' + m[l] + '</span></span>').join('') + '</div>';
-    $('marqueeTrack').innerHTML = half(false) + half(true);
-  }
-
   let lang = 'en', words = T.en.words;
   try { const s = localStorage.getItem('lang'); if (s === 'ar' || s === 'en') lang = s; } catch(e){}
 
@@ -516,10 +347,8 @@
     const root = document.documentElement;
     root.setAttribute('lang', l); root.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr');
     document.querySelectorAll('[data-i18n]').forEach(n => { n.textContent = d[n.dataset.i18n]; });
-    document.querySelectorAll('[data-i18n-ph]').forEach(n => { n.placeholder = d[n.dataset.i18nPh]; });
     document.querySelectorAll('[data-i18n-html]').forEach(n => { n.innerHTML = d[n.dataset.i18nHtml]; });
     $('lang').textContent = d.toggle;
-    renderMarquee(l);
     restartTyping();
     try { localStorage.setItem('lang', l); } catch(e){}
   }
@@ -540,18 +369,7 @@
   function restartTyping(){ clearTimeout(timer); w = 0; i = 0; del = false; type(); }
 
   /* ---------- Reveal on scroll ---------- */
-  // Cards and headings fade in as they enter the screen and play again each time you scroll back to them
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    const n = e.target;
-    if (e.isIntersecting) {
-      const sib = [...n.parentElement.children].filter(c => c.classList.contains('reveal'));
-      n.style.transitionDelay = Math.min(sib.indexOf(n), 4) * 140 + 'ms';
-      n.classList.add('in');
-    } else {
-      n.style.transitionDelay = '0ms';
-      n.classList.remove('in');
-    }
-  }), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), {threshold:.15});
   const startReveal = () => document.querySelectorAll('.reveal').forEach(n => io.observe(n));
 
   /* ---------- Copy email / phone when tapped (the mail and call apps still open if the device has them) ---------- */
@@ -560,31 +378,6 @@
     toast.textContent = msg; toast.classList.add('show');
     clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
   }
-  /* contact form -> email (FormSubmit) */
-  const cform = $('cform');
-  if (cform) cform.addEventListener('submit', async e => {
-    e.preventDefault();
-    const f = new FormData(cform), btn = $('cbtn'), t = T[lang];
-    const n = (f.get('name')||'').trim(), m = (f.get('email')||'').trim(), g = (f.get('message')||'').trim();
-    if (f.get('_honey')) return;
-    if (!n || !/^\S+@\S+\.\S+$/.test(m) || !g) { showToast(t.ct_err); return; }
-    btn.disabled = true;
-    try {
-      const r = await fetch('https://formsubmit.co/ajax/saramahmoud.dev@gmail.com', {
-        method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body: JSON.stringify({name:n, email:m, message:g, _subject:'New message from your portfolio', _replyto:m, _template:'table'})
-      });
-      if (!r.ok) throw 0;
-      cform.reset(); showToast(t.ct_ok);
-    } catch(_) {
-      /* service unreachable (blocked / offline): open the mail app with everything pre-filled */
-      const body = encodeURIComponent(g + '\n\n— ' + n + ' (' + m + ')');
-      showToast(t.ct_fail);
-      window.location.href = 'mailto:saramahmoud.dev@gmail.com?subject=' + encodeURIComponent('New message from your portfolio') + '&body=' + body;
-    }
-    btn.disabled = false;
-  });
-
   document.querySelectorAll('[data-copy]').forEach(a => a.addEventListener('click', async () => {
     const text = a.dataset.copy; let ok = false;
     try { await navigator.clipboard.writeText(text); ok = true; } catch(e){}
@@ -604,17 +397,11 @@
   vid.muted = true;
   let tgt = 0, cur = 0;
   const dur = () => (vid.duration && isFinite(vid.duration)) ? vid.duration : 8;
-  const VIEWS = ['home', 'about', 'services', 'projects', 'process'];
-  let viewIdx = 0;
   function scrollProgress(){
     const max = document.documentElement.scrollHeight - innerHeight;
     return max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
   }
-  function onScroll(){
-    const sp = scrollProgress();
-    const p = viewIdx === 0 ? sp * 0.75 : 0.75 + sp * 0.25;
-    tgt = Math.min(1, p) * dur() * 0.995;
-  }
+  function onScroll(){ tgt = scrollProgress() * dur() * 0.995; }
   addEventListener('scroll', onScroll, { passive: true });
   vid.addEventListener('loadedmetadata', () => { try { vid.pause(); } catch(err){} onScroll(); });
   (function scrubLoop(){
@@ -659,73 +446,6 @@
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
   document.addEventListener('click', e => { if (!e.target.closest('nav')) setMenu(false); });
 
-  /* ---------- Pages: Home holds Projects and Process, About me is its own page ---------- */
-  const pageOf = id => id === 'about' ? 'about' : 'home';
-  let currentPage = null;
-  function showView(id, updateHash){
-    if (!VIEWS.includes(id)) id = 'home';
-    const page = pageOf(id), same = page === currentPage;
-    document.querySelectorAll('section.view').forEach(sec => sec.classList.toggle('active', pageOf(sec.id) === page));
-    currentPage = page; viewIdx = page === 'about' ? 1 : 0;
-    const target = (id === 'services' || id === 'projects' || id === 'process') ? $(id) : null;
-    if (target) {
-      if (!same) window.scrollTo({ top: 0, behavior: 'instant' });
-      requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth' }));
-    } else {
-      window.scrollTo({ top: 0, behavior: same ? 'smooth' : 'instant' });
-    }
-    onScroll();
-    if (updateHash) { try { history.replaceState(null, '', '#' + id); } catch(e){} }
-  }
-  document.addEventListener('click', e => {
-    const a = e.target.closest('a[href^="#"]');
-    if (!a) return;
-    const id = a.getAttribute('href').slice(1);
-    if (VIEWS.includes(id)) { e.preventDefault(); showView(id, true); }
-    else if (id === 'socials') { e.preventDefault(); $('socials').scrollIntoView({ behavior: 'smooth' }); }
-  });
-  addEventListener('hashchange', () => showView(location.hash.slice(1), false));
-  showView(location.hash.slice(1), false);
-
-  /* ---------- Start Your Project: a short chat, then WhatsApp ---------- */
-  const chat = $('chat'), chatPanel = $('chatPanel'), chatBody = $('chatBody'), chatWa = $('chatWa');
-  let chatTimers = [];
-  const waLink = () => 'https://wa.me/201023874936?text=' + encodeURIComponent(T[lang].wa_text);
-  function chatAdd(text, who){
-    const d = document.createElement('div'); d.className = 'msg ' + who; d.textContent = text;
-    chatBody.appendChild(d); chatBody.scrollTop = chatBody.scrollHeight; return d;
-  }
-  function chatTyping(){
-    const d = document.createElement('div'); d.className = 'msg bot typing'; d.innerHTML = '<span></span><span></span><span></span>';
-    chatBody.appendChild(d); chatBody.scrollTop = chatBody.scrollHeight; return d;
-  }
-  function at(ms, fn){ chatTimers.push(setTimeout(fn, ms)); }
-  function botSays(text, typeFrom, showAt){
-    let t = null;
-    at(typeFrom, () => { t = chatTyping(); });
-    at(showAt, () => { if (t) t.remove(); chatAdd(text, 'bot'); });
-  }
-  function openChat(){
-    const d = T[lang];
-    chatTimers.forEach(clearTimeout); chatTimers = [];
-    chatBody.innerHTML = ''; chatPanel.classList.remove('done');
-    $('chatName').textContent = d.chat_name; $('chatStatus').textContent = d.chat_status;
-    $('chatAvatar').textContent = d.chat_name.charAt(0);
-    chatWa.textContent = d.c_btn; chatWa.href = waLink();
-    chat.classList.add('open');
-    botSays(d.c1, 200, 800);
-    botSays(d.c2, 1200, 1800);
-    at(2600, () => chatAdd(d.c_user, 'me'));
-    botSays(d.c3, 2900, 3500);
-    at(3500, () => chatPanel.classList.add('done'));
-    at(4000, () => { try { chatWa.click(); } catch(e){} });  // opens WhatsApp; the button stays if the browser blocks it
-  }
-  function closeChat(){ chatTimers.forEach(clearTimeout); chatTimers = []; chat.classList.remove('open'); }
-  document.querySelectorAll('.js-start').forEach(b => b.addEventListener('click', e => { e.preventDefault(); openChat(); }));
-  $('chatClose').addEventListener('click', closeChat);
-  chat.addEventListener('click', e => { if (e.target === chat) closeChat(); });
-  addEventListener('keydown', e => { if (e.key === 'Escape') closeChat(); });
-
   /* ---------- Welcome screen: show first, then open the site ---------- */
   const intro = $('intro'); let introDone = false;
   document.documentElement.style.overflow = 'hidden';
@@ -739,6 +459,7 @@
   setTimeout(endIntro, 3000);
   intro.addEventListener('click', endIntro);
 
+  $('yr').textContent = new Date().getFullYear();
   apply(lang);
 })();
 </script>

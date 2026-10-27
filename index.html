@@ -7,7 +7,7 @@
     --accent:#d9b38c;
     --text:#f4efe9;
     --muted:#c9c0b6;
-    --glass:rgba(20,18,16,.45);
+    --glass:#141312;
     --border:rgba(255,255,255,.14);
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -58,7 +58,7 @@
     border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:7px 14px;cursor:pointer;transition:.2s;
   }
   .burger{
-    display:none;width:42px;height:42px;border-radius:50%;border:0;background:rgba(0,0,0,.25);
+    display:none;width:42px;height:42px;border-radius:0;border:0;background:none;
     cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px;
   }
   .burger span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:.25s}
@@ -87,6 +87,7 @@
   section.view:not(#home){background:#0b0a09;min-height:auto;justify-content:flex-start;padding:130px 6vw 56px}
   @keyframes pageIn{from{opacity:0}to{opacity:1}}
     body.is-home section.view:not(#home){padding-top:84px}
+  body.is-home #services{position:relative;z-index:1;margin-top:-34px;border-radius:34px 34px 0 0;border-top:1px solid rgba(255,255,255,.08)}
   @media (max-width:760px){section.view:not(#home){padding-block:104px 44px} body.is-home section.view:not(#home){padding-top:64px}}
   @media (prefers-reduced-motion:reduce){section.view.active{animation:none}}
 
@@ -159,8 +160,8 @@
 
   /* ---------- Glass cards ---------- */
   .glass{
-    background:var(--glass);border:1px solid var(--border);border-radius:20px;
-    backdrop-filter:blur(14px);padding:28px;
+    background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:20px;
+    padding:28px;
   }
   .about-grid{display:grid;grid-template-columns:1fr;gap:20px;width:100%;max-width:760px;margin-inline:auto}
   @media(max-width:760px){.about-grid{grid-template-columns:1fr}}
@@ -239,7 +240,7 @@
     .bg-video{object-position:center 30%}
   }
   @media (max-width:760px){
-    .glass{backdrop-filter:blur(8px);padding:22px}
+    .glass{padding:22px}
     nav{backdrop-filter:blur(10px)}
     section{padding-block:130px 90px}
     #home{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}

@@ -14,7 +14,7 @@
   a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
   body{
-    font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
     color:var(--text);
     background:#0d0c0b;
     overflow-x:hidden;
@@ -24,7 +24,7 @@
 
   /* ---------- Video background ---------- */
   .bg{
-    position:absolute; top:0; left:0; width:100%; height:100vh; height:100svh;
+    position:absolute; inset:0;
     z-index:-3; overflow:hidden; background:#1a1816;
   }
   .bg-video{
@@ -32,7 +32,7 @@
     object-fit:cover; object-position:62% 30%;
   }
   .bg-overlay{
-    position:absolute; top:0; left:0; width:100%; height:100vh; height:100svh; z-index:-2;
+    position:absolute; inset:0; z-index:-2;
     background:
       linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55));
   }
@@ -87,7 +87,7 @@
   section.view:not(#home){background:#0b0a09;min-height:auto;justify-content:flex-start;padding:130px 6vw 56px}
   @keyframes pageIn{from{opacity:0}to{opacity:1}}
     body.is-home section.view:not(#home){padding-top:84px}
-  body.is-home #services{position:relative;z-index:1;margin-top:-34px;border-radius:34px 34px 0 0;border-top:1px solid rgba(255,255,255,.08)}
+  body.is-home #services{position:relative;z-index:1;margin-top:-34px;border-radius:34px 34px 0 0}
   @media (max-width:760px){section.view:not(#home){padding-block:104px 44px} body.is-home section.view:not(#home){padding-top:64px}}
   @media (prefers-reduced-motion:reduce){section.view.active{animation:none}}
 
@@ -95,7 +95,7 @@
   .marquee{width:100%;max-width:560px;align-self:center;margin:20px auto 0;background:transparent;overflow:hidden;padding:12px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
   .marquee-track{display:flex;width:max-content;animation:marquee 32s linear infinite}
   .marquee-half{display:flex;flex-shrink:0}
-  .marquee-pill{display:inline-flex;align-items:center;gap:8px;margin-right:12px;padding:10px 20px;border-radius:9999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);color:#d4d4d4;font-size:.95rem;white-space:nowrap}
+  .marquee-pill{display:inline-flex;align-items:center;gap:8px;margin-right:12px;padding:10px 20px;border-radius:9999px;background:var(--glass);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(8px);color:#d4d4d4;font-size:.95rem;white-space:nowrap}
   @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
 
@@ -128,7 +128,7 @@
   @media (prefers-reduced-motion:reduce){.chat-panel,.msg{animation:none}}
 
   /* ---------- Hero ---------- */
-  #home{min-height:100vh;align-items:flex-start;justify-content:flex-end;padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
+  #home{position:relative;min-height:100vh;min-height:100svh;align-items:flex-start;justify-content:flex-end;padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
   .tagline{max-width:420px;font-size:clamp(1.05rem,2.2vw,1.35rem);line-height:1.5;font-weight:500;color:var(--text)}
   .cta{margin:22px 0 clamp(28px,6vw,56px)}
   .pill-btn{
@@ -176,8 +176,8 @@
   }
   .card h3{margin:10px 0 8px}
   .card p{color:var(--muted);line-height:1.7;font-size:.95rem}
-  .tag{font-size:.75rem;letter-spacing:.15em;color:var(--accent);text-transform:uppercase}
-  .card a{display:inline-block;margin-top:16px;color:var(--accent);text-decoration:none;font-weight:600}
+  .tag{font-size:.75rem;letter-spacing:.15em;color:#fff;text-transform:uppercase}
+  .card a{display:inline-block;margin-top:16px;color:#fff;text-decoration:none;font-weight:600}
   .card a::after{content:"";position:absolute;inset:0}
 
   /* ---------- Services (under the marquee) ---------- */
@@ -253,16 +253,17 @@
 
   /* ---------- Welcome screen ---------- */
   #intro{
-    position:fixed; inset:0; z-index:90; background:#0d0c0b;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
-    padding:24px; text-align:center; cursor:pointer;
+    position:fixed; inset:0; z-index:90;
+    background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.78)),url("bg.jpg") 62% 30%/cover #0b0a09;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:14px;
+    padding:24px 24px 14vh; text-align:center; cursor:pointer;
     transition:opacity .9s ease, visibility .9s ease;
     animation:introOut .9s ease 3.4s forwards;
   }
   #intro.done{opacity:0;visibility:hidden}
-  #intro .i-small{color:var(--accent);letter-spacing:.35em;text-transform:uppercase;font-size:.85rem;opacity:0;animation:introUp .9s ease .3s forwards}
+  #intro .i-small{color:rgba(255,255,255,.8);letter-spacing:.35em;text-transform:uppercase;font-size:.85rem;opacity:0;animation:introUp .9s ease .3s forwards}
   #intro .i-big{font-size:clamp(2.2rem,7vw,4.6rem);font-weight:800;line-height:1.15;max-width:900px;opacity:0;animation:introUp 1s ease .7s forwards}
-  #intro .i-line{width:0;height:2px;background:var(--accent);border-radius:2px;animation:introLine 1.2s ease 1.3s forwards}
+  #intro .i-line{width:0;height:2px;background:#fff;border-radius:2px;animation:introLine 1.2s ease 1.3s forwards}
   html[lang="ar"] #intro .i-small{letter-spacing:0}
   @keyframes introUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
   @keyframes introLine{to{width:min(220px,50vw)}}
@@ -286,8 +287,6 @@
   <span class="i-line"></span>
 </div>
 
-<div class="bg" id="bg"><img class="bg-video" id="bgv" src="bg.jpg" alt=""></div>
-<div class="bg-overlay" id="overlay"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <h1 class="sr-only" data-i18n="site_h1">Sara Mahmoud – Web Developer Portfolio</h1>
@@ -307,6 +306,8 @@
 
 
 <section id="home" class="view active">
+  <div class="bg" id="bg"><img class="bg-video" id="bgv" src="bg.jpg" alt=""></div>
+  <div class="bg-overlay" id="overlay"></div>
   <p class="tagline reveal" data-i18n="tagline">I design and build fast, beautiful websites and interactive experiences that bring ideas to life.</p>
   <div class="cta reveal">
     <a class="pill-btn" id="startBtn" href="https://logogit15-ux.github.io/bot-/" target="_blank" rel="noopener"><span data-i18n="cta_start">Start Your Project</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
@@ -440,7 +441,7 @@
       about_h:'About me',
       about_p:"I'm Sara, a Web Developer specializing in transforming ideas into modern websites. I combine the power of Front-End technologies like React, Next.js, and Tailwind CSS with the flexibility of building and customizing websites and online stores using WordPress, delivering comprehensive projects that blend high performance with responsive design.",
       skills:'Skills', proj_h:'Projects',
-      p1_tag:'Website', p1_t:'Elebiary Portfolio', p1_d:'A bilingual (English and Arabic) portfolio website for a graphic designer, with About, Services, Brands, Process, FAQ and WhatsApp contact.', p2_tag:'Mobile', p2_t:'Project Two', p3_tag:'API', p3_t:'Project Three',
+      p1_tag:'Website', p1_t:'NOUR ELDIN EL EBIARY', p1_d:'A bilingual (English and Arabic) portfolio website for a graphic designer, with About, Services, Brands, Process, FAQ and WhatsApp contact.', p2_tag:'Mobile', p2_t:'Project Two', p3_tag:'API', p3_t:'Project Three',
       p_d:'Short description of what it does and the tech you used.', p_link:'View project →',
       contact_h:"Let's work together", contact_p:"Have a project or an opportunity? I'd love to hear from you.",
       c_email:'Email', c_phone:'Phone / WhatsApp', toast_email:'Email address copied', toast_phone:'Phone number copied', wa:'Chat on WhatsApp',
@@ -459,7 +460,7 @@
       about_h:'نبذة عني',
       about_p:'أنا سارة، مطوّرة ويب متخصصة في تحويل الأفكار إلى مواقع حديثة. أجمع بين قوة تقنيات الواجهة الأمامية مثل React وNext.js وTailwind CSS ومرونة بناء المواقع والمتاجر الإلكترونية وتخصيصها باستخدام WordPress، لأقدّم مشاريع متكاملة تجمع بين الأداء العالي والتصميم المتجاوب.',
       skills:'المهارات', proj_h:'مشاريعي',
-      p1_tag:'موقع ويب', p1_t:'بورتفوليو الأبياري', p1_d:'موقع بورتفوليو لمصمم جرافيك بلغتين (عربي وإنجليزي)، فيه أقسام عني والخدمات والبراندات والعملية والأسئلة الشائعة وتواصل واتساب.', p2_tag:'موبايل', p2_t:'المشروع الثاني', p3_tag:'API', p3_t:'المشروع الثالث',
+      p1_tag:'موقع ويب', p1_t:'نور الدين الأبياري', p1_d:'موقع بورتفوليو لمصمم جرافيك بلغتين (عربي وإنجليزي)، فيه أقسام عني والخدمات والبراندات والعملية والأسئلة الشائعة وتواصل واتساب.', p2_tag:'موبايل', p2_t:'المشروع الثاني', p3_tag:'API', p3_t:'المشروع الثالث',
       p_d:'وصف قصير لما يفعله المشروع والتقنيات المستخدمة فيه.', p_link:'عرض المشروع ←',
       contact_h:'لنعمل معاً', contact_p:'عندك مشروع أو فرصة عمل؟ يسعدني أن أسمع منك.',
       c_email:'البريد الإلكتروني', c_phone:'الهاتف / واتساب', toast_email:'تم نسخ البريد الإلكتروني', toast_phone:'تم نسخ رقم الهاتف', wa:'تواصل عبر واتساب',

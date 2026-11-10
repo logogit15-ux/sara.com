@@ -1,5 +1,13 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Sara .com</title>
+</head>
+<body>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap">
 <style>
   :root{
@@ -28,16 +36,24 @@
     z-index:-3; overflow:hidden; background:#1a1816;
   }
   /* soft blurred copy fills whatever the full photo does not cover */
-  .bg::before{
-    content:""; position:absolute; inset:-40px;
-    background:url("bg.jpg") center 30%/cover no-repeat;
-    filter:blur(34px) brightness(.7); transform:scale(1.1);
-  }
   .bg-video{
-    position:absolute; top:0; left:50%; height:100%; width:auto; aspect-ratio:3/4;
-    transform:translateX(-50%); object-fit:cover;
-    -webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
-    mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:62% 30%;
+  }
+  /* wide screens (laptop / PC): show the whole photo, softly blended into a blurred copy of itself */
+  @media (min-aspect-ratio:1/1){
+    .bg::before{
+      content:""; position:absolute; inset:-40px;
+      background:url("bg.jpg") center 30%/cover no-repeat;
+      filter:blur(34px) brightness(.7); transform:scale(1.1);
+    }
+    .bg-video{
+      inset:auto; top:0; left:50%; height:100%; width:auto; aspect-ratio:3/4;
+      transform:translateX(-50%); object-fit:cover; object-position:center;
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
+      mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
+    }
+    .tagline{max-width:max(220px,calc(50vw - 37.5vh - 6vw - 24px))}
   }
   .bg-overlay{
     position:absolute; inset:0; z-index:-2;
@@ -255,11 +271,8 @@
 
 
   /* ---------- Phones & portrait screens ---------- */
-  @media (min-aspect-ratio:1/1){
-    .tagline{max-width:max(220px,calc(50vw - 37.5vh - 6vw - 24px))}
-  }
   @media (max-aspect-ratio:1/1){
-    .bg-video{top:64px;left:0;width:100%;height:auto;transform:none;object-position:center top;-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent);mask-image:linear-gradient(180deg,#000 82%,transparent)}
+    .bg-video{object-position:center 30%}
   }
   @media (max-width:760px){
     .glass{padding:22px}
@@ -700,4 +713,5 @@
 })();
 </script>
 
-</body></html>
+</body>
+</html>

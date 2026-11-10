@@ -1,692 +1,703 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-  <title>Sara .com</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap">
-  <style>
-    :root{
-      color-scheme:dark;
-      --accent:#d9b38c;
-      --text:#f4efe9;
-      --muted:#c9c0b6;
-      --glass:#141312;
-      --border:rgba(255,255,255,.14);
+<title>Sara .com</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap">
+<style>
+  :root{
+    color-scheme:dark;
+    --accent:#d9b38c;
+    --text:#f4efe9;
+    --muted:#c9c0b6;
+    --glass:#141312;
+    --border:rgba(255,255,255,.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+    color:var(--text);
+    background:#0d0c0b;
+    overflow-x:hidden;
+  }
+  html[lang="ar"] body, html[lang="ar"] button{font-family:"Cairo","Segoe UI",Tahoma,sans-serif}
+  html[lang="ar"] .hello, html[lang="ar"] .tag, html[lang="ar"] .logo{letter-spacing:0}
+
+  /* ---------- Video background ---------- */
+  .bg{
+    position:absolute; inset:0;
+    z-index:-3; overflow:hidden; background:#1a1816;
+  }
+  /* soft blurred copy fills whatever the full photo does not cover */
+  .bg::before{
+    content:""; position:absolute; inset:-40px;
+    background:url("bg.jpg") center 30%/cover no-repeat;
+    filter:blur(34px) brightness(.7); transform:scale(1.1);
+  }
+  .bg-video{
+    position:absolute; top:0; left:50%; height:100%; width:auto; aspect-ratio:3/4;
+    transform:translateX(-50%); object-fit:cover;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
+  }
+  .bg-overlay{
+    position:absolute; inset:0; z-index:-2;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55));
+  }
+
+  /* ---------- Floating pill nav ---------- */
+  nav{
+    position:fixed; z-index:50;
+    top:calc(14px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%);
+    width:calc(100% - 28px); max-width:1100px;
+    display:flex; justify-content:flex-end; align-items:center; gap:12px;
+    padding:10px 12px 10px 24px;
+    border-radius:999px;
+    background:rgba(217,179,140,.22);
+    border:1px solid rgba(255,255,255,.16);
+    backdrop-filter:blur(14px);
+  }
+  .logo{font-weight:700;letter-spacing:.08em;color:var(--text);text-decoration:none;white-space:nowrap}
+  .nav-right{display:flex;align-items:center;gap:20px}
+  .links{display:flex;gap:24px;list-style:none}
+  nav a{color:var(--text);text-decoration:none;font-size:.95rem;opacity:.9;transition:.2s}
+  .lang{
+    font:inherit;font-size:.85rem;font-weight:600;color:var(--text);background:rgba(0,0,0,.25);
+    border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:7px 14px;cursor:pointer;transition:.2s;
+  }
+  .burger{
+    display:none;width:42px;height:42px;border-radius:0;border:0;background:none;
+    cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  }
+  .burger span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:.25s}
+  .burger.open span:first-child{transform:translateY(4px) rotate(45deg)}
+  .burger.open span:last-child{transform:translateY(-4px) rotate(-45deg)}
+  @media(max-width:760px){
+    nav{padding:8px 8px 8px 20px}
+    .burger{display:flex}
+    .nav-right{gap:10px}
+    .links{
+      position:absolute; top:calc(100% + 10px); left:0; right:0;
+      flex-direction:column; gap:0; padding:8px;
+      border-radius:28px; background:rgba(20,18,16,.82); border:1px solid var(--border);
+      backdrop-filter:blur(16px);
+      opacity:0; pointer-events:none; transform:translateY(-8px); transition:.25s;
     }
-    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-    a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
-    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-    body{
-      font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
-      color:var(--text);
-      background:#0d0c0b;
-      overflow-x:hidden;
-    }
-    html[lang="ar"] body, html[lang="ar"] button{font-family:"Cairo","Segoe UI",Tahoma,sans-serif}
-    html[lang="ar"] .hello, html[lang="ar"] .tag, html[lang="ar"] .logo{letter-spacing:0}
-  
-    /* ---------- Video background ---------- */
-    .bg{
-      position:absolute; inset:0;
-      z-index:-3; overflow:hidden; background:#1a1816;
-    }
-    .bg-video{
-      position:absolute; inset:0; width:100%; height:100%;
-      object-fit:cover; object-position:62% 30%;
-    }
-    .bg-overlay{
-      position:absolute; inset:0; z-index:-2;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55));
-    }
-  
-    /* ---------- Floating pill nav ---------- */
-    nav{
-      position:fixed; z-index:50;
-      top:calc(14px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%);
-      width:calc(100% - 28px); max-width:1100px;
-      display:flex; justify-content:flex-end; align-items:center; gap:12px;
-      padding:10px 12px 10px 24px;
-      border-radius:999px;
-      background:rgba(217,179,140,.22);
-      border:1px solid rgba(255,255,255,.16);
-      backdrop-filter:blur(14px);
-    }
-    .logo{font-weight:700;letter-spacing:.08em;color:var(--text);text-decoration:none;white-space:nowrap}
-    .nav-right{display:flex;align-items:center;gap:20px}
-    .links{display:flex;gap:24px;list-style:none}
-    nav a{color:var(--text);text-decoration:none;font-size:.95rem;opacity:.9;transition:.2s}
-    .lang{
-      font:inherit;font-size:.85rem;font-weight:600;color:var(--text);background:rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:7px 14px;cursor:pointer;transition:.2s;
-    }
-    .burger{
-      display:none;width:42px;height:42px;border-radius:0;border:0;background:none;
-      cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px;
-    }
-    .burger span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:.25s}
-    .burger.open span:first-child{transform:translateY(4px) rotate(45deg)}
-    .burger.open span:last-child{transform:translateY(-4px) rotate(-45deg)}
-    @media(max-width:760px){
-      nav{padding:8px 8px 8px 20px}
-      .burger{display:flex}
-      .nav-right{gap:10px}
-      .links{
-        position:absolute; top:calc(100% + 10px); left:0; right:0;
-        flex-direction:column; gap:0; padding:8px;
-        border-radius:28px; background:rgba(20,18,16,.82); border:1px solid var(--border);
-        backdrop-filter:blur(16px);
-        opacity:0; pointer-events:none; transform:translateY(-8px); transition:.25s;
-      }
-      .links.open{opacity:1;pointer-events:auto;transform:none}
-      .links li a{display:block;padding:14px 18px;font-size:1rem}
-    }
-  
-    section{overflow-x:clip;min-height:100vh;min-height:100svh;padding:150px 6vw 110px;display:flex;flex-direction:column;justify-content:center}
-  
-    /* ---------- Separate pages ---------- */
-    section.view{display:none}
-    section.view.active{display:flex;animation:pageIn .6s ease both}
-    section.view:not(#home){background:#0b0a09;min-height:auto;justify-content:flex-start;padding:130px 6vw 56px}
-    @keyframes pageIn{from{opacity:0}to{opacity:1}}
-      body.is-home section.view:not(#home){padding-top:84px}
-    body.is-home #services{position:relative;z-index:1;margin-top:-34px;border-radius:34px 34px 0 0}
-    @media (max-width:760px){section.view:not(#home){padding-block:104px 44px} body.is-home section.view:not(#home){padding-top:64px}}
-    @media (prefers-reduced-motion:reduce){section.view.active{animation:none}}
-  
-    /* ---------- Infinite marquee (Home) ---------- */
-    .marquee{width:100%;max-width:560px;align-self:center;margin:20px auto 0;background:transparent;overflow:hidden;padding:12px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-    .marquee-track{display:flex;width:max-content;animation:marquee 32s linear infinite}
-    .marquee-half{display:flex;flex-shrink:0}
-    .marquee-pill{display:inline-flex;align-items:center;gap:8px;margin-right:12px;padding:10px 20px;border-radius:9999px;background:var(--glass);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(8px);color:#d4d4d4;font-size:.95rem;white-space:nowrap}
-    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    @media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
-  
-    /* ---------- Start Your Project chat ---------- */
-    #chat{position:fixed;inset:0;z-index:120;display:none;align-items:flex-end;justify-content:flex-end;padding:20px;background:rgba(0,0,0,.5);backdrop-filter:blur(4px)}
-    #chat.open{display:flex}
-    .chat-panel{width:min(380px,100%);max-height:min(560px,calc(100svh - 40px));display:flex;flex-direction:column;background:rgba(18,16,14,.95);border:1px solid var(--border);border-radius:24px;overflow:hidden;animation:chatUp .35s ease}
-    .chat-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--border)}
-    .chat-avatar{width:40px;height:40px;border-radius:50%;background:var(--accent);color:#1a1510;display:flex;align-items:center;justify-content:center;font-weight:800}
-    .chat-who{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
-    .chat-who b{font-size:1rem}
-    .chat-who span{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:.8rem}
-    .chat-who span::before{content:"";width:8px;height:8px;border-radius:50%;background:#3ecf6e}
-    .chat-x{width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:var(--text);font-size:1.2rem;line-height:1;cursor:pointer}
-    .chat-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:10px;min-height:230px}
-    .msg{max-width:84%;padding:10px 14px;border-radius:18px;line-height:1.5;font-size:.95rem;animation:msgIn .3s ease}
-    .msg.bot{align-self:flex-start;background:rgba(255,255,255,.1);border-end-start-radius:6px}
-    .msg.me{align-self:flex-end;background:var(--accent);color:#1a1510;border-end-end-radius:6px}
-    .msg.typing{display:flex;gap:5px;padding:14px 16px}
-    .msg.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:dot 1s infinite ease-in-out}
-    .msg.typing span:nth-child(2){animation-delay:.15s}
-    .msg.typing span:nth-child(3){animation-delay:.3s}
-    .chat-foot{padding:6px 18px 18px}
-    .chat-foot a{display:none;text-align:center;width:100%}
-    .chat-panel.done .chat-foot a{display:block}
-    .chat-foot form{display:none;flex-direction:column;gap:8px}
-    .chat-panel.ask .chat-foot form{display:flex}
-    .chat-foot input{width:100%;font:inherit;color:var(--text);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px 14px;outline:none}
-    .chat-foot input:focus{border-color:var(--accent)}
-    .chat-foot form button{border:0;cursor:pointer;font:inherit;font-weight:700;border-radius:14px;padding:12px}
-    .chat-panel.done .chat-foot a{animation:waPop .7s cubic-bezier(.2,.9,.3,1.4) both, waGlow 1.8s ease-in-out .7s infinite;position:relative;overflow:hidden}
-    .chat-panel.done .chat-foot a::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:waShine 2.2s ease-in-out .9s infinite}
-    @keyframes waPop{from{opacity:0;transform:translateY(14px) scale(.85)}to{opacity:1;transform:none}}
-    @keyframes waGlow{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.0)}50%{box-shadow:0 0 0 8px rgba(37,211,102,.22)}}
-    @keyframes waShine{0%{left:-60%}60%,100%{left:130%}}
-    @keyframes chatUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-    @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-    @keyframes dot{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-4px)}}
-    @media (max-width:760px){#chat{padding:12px;justify-content:center}}
-    @media (prefers-reduced-motion:reduce){.chat-panel,.msg{animation:none}}
-  
-    /* ---------- Hero ---------- */
-    #home{position:relative;min-height:100vh;min-height:100svh;align-items:flex-start;justify-content:flex-end;padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
-    .tagline{max-width:420px;font-size:clamp(1.05rem,2.2vw,1.35rem);line-height:1.5;font-weight:500;color:var(--text)}
-    .cta{margin:22px 0 clamp(28px,6vw,56px)}
-    .pill-btn{
-      display:inline-flex;align-items:center;gap:14px;padding:8px 8px 8px 24px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.25);backdrop-filter:blur(8px);
-      color:var(--text);text-decoration:none;font-weight:600;transition:.25s;
-    }
-    .pill-btn .arrow{
-      width:42px;height:42px;border-radius:50%;background:var(--text);color:#1a1510;
-      display:inline-flex;align-items:center;justify-content:center;transition:.25s;
-    }
-    .pill-btn .arrow svg{width:18px;height:18px}
-    html[dir="rtl"] .pill-btn{padding:8px 24px 8px 8px}
-    .hello{color:var(--accent);letter-spacing:.3em;text-transform:uppercase;font-size:.85rem;margin-bottom:10px}
-    .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    h1{font-size:clamp(2.6rem,8vw,6rem);line-height:1.1;font-weight:800;max-width:900px}
-    h1 span{color:var(--accent)}
-    .role{margin-top:14px;font-size:clamp(1.1rem,2.5vw,1.6rem);color:var(--muted);min-height:2em}
-    .role b{color:var(--text);border-inline-end:2px solid var(--accent);padding-inline-end:4px;animation:blink .8s infinite}
-    @keyframes blink{50%{border-color:transparent}}
-    .btn{
-      padding:14px 30px;border-radius:50px;text-decoration:none;font-weight:600;
-      border:1px solid var(--accent);color:var(--accent);transition:.25s;display:inline-block;
-    }
-    .btn.fill{background:var(--accent);color:#1a1510}
-  
-    h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:32px;text-align:center;width:fit-content;max-width:100%;margin-inline:auto}
-    h2::after{content:"";display:block;width:100%;height:.5em;margin:.1em auto 0;background:var(--accent);-webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20220%2040%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cfilter%20id%3D%22r%22%20x%3D%22-5%25%22%20y%3D%22-30%25%22%20width%3D%22110%25%22%20height%3D%22160%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.7%22%20numOctaves%3D%221%22%20seed%3D%223%22/%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20scale%3D%221.6%22/%3E%3C/filter%3E%3C/defs%3E%3Cg%20filter%3D%22url%28%23r%29%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20stroke-width%3D%227%22%20d%3D%22M7%2011%20Q110%204%20213%208%22/%3E%3Cpath%20stroke-width%3D%2211%22%20d%3D%22M28%2029%20Q120%2015%20211%2011%22/%3E%3Cpath%20stroke-width%3D%2210%22%20d%3D%22M30%2030%20L98%2031%22/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20220%2040%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cfilter%20id%3D%22r%22%20x%3D%22-5%25%22%20y%3D%22-30%25%22%20width%3D%22110%25%22%20height%3D%22160%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.7%22%20numOctaves%3D%221%22%20seed%3D%223%22/%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20scale%3D%221.6%22/%3E%3C/filter%3E%3C/defs%3E%3Cg%20filter%3D%22url%28%23r%29%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20stroke-width%3D%227%22%20d%3D%22M7%2011%20Q110%204%20213%208%22/%3E%3Cpath%20stroke-width%3D%2211%22%20d%3D%22M28%2029%20Q120%2015%20211%2011%22/%3E%3Cpath%20stroke-width%3D%2210%22%20d%3D%22M30%2030%20L98%2031%22/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat}
-    .about-card p{font-size:1.05rem}
-  
-    /* ---------- Glass cards ---------- */
-    .glass{
-      background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:20px;
-      padding:28px;
-    }
-    .about-grid{display:grid;grid-template-columns:1fr;gap:20px;width:100%;max-width:760px;margin-inline:auto}
-    @media(max-width:760px){.about-grid{grid-template-columns:1fr}}
-    .about p{color:var(--muted);line-height:1.8}
-    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
-    .chip{padding:8px 16px;border-radius:30px;border:1px solid var(--border);background:rgba(255,255,255,.06);font-size:.9rem;transition:.2s}
-  
-    /* ---------- Projects (3D tilt) ---------- */
-    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),400px));justify-content:center;gap:24px;width:100%;max-width:1100px;margin-inline:auto}
-    .card{
-      position:relative;overflow:hidden;
-    }
-    .card h3{margin:10px 0 8px}
-    .card p{color:var(--muted);line-height:1.7;font-size:.95rem}
-    .tag{font-size:.75rem;letter-spacing:.15em;color:#fff;text-transform:uppercase}
-    .card a{display:inline-block;margin-top:16px;color:#fff;text-decoration:none;font-weight:600}
-    .card a::after{content:"";position:absolute;inset:0}
-  
-    /* ---------- Services (under the marquee) ---------- */
-    #services h2{margin-bottom:14px}
-    .svc-cta{display:flex;justify-content:center;margin:0 0 44px}
-    .svc-grid{display:grid;grid-template-columns:1fr;gap:20px;width:100%;max-width:560px;margin-inline:auto}
-    .svc-card{display:flex;flex-direction:column;gap:14px;padding:28px}
-    .svc-head{display:flex;align-items:center;gap:14px}
-    .svc-head svg{width:26px;height:26px;flex-shrink:0;fill:none;stroke:var(--text);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-    .svc-head h3{font-size:1.05rem}
-    .svc-card p{color:var(--muted);line-height:1.7;font-size:.95rem}
-  
-    /* ---------- Process ---------- */
-    #process h2{margin-bottom:0}
-    .proc-sub{text-align:center;color:var(--muted);max-width:520px;margin:0 auto 48px;line-height:1.6}
-    .proc-grid{display:grid;grid-template-columns:1fr;gap:20px;width:100%;max-width:560px;margin-inline:auto}
-    .proc-card{display:flex;flex-direction:column;gap:14px;padding:28px}
-    .proc-card svg{width:30px;height:30px;fill:none;stroke:var(--text);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:22px}
-    .proc-card h3{font-size:1.05rem}
-    .proc-card p{color:var(--muted);line-height:1.7;font-size:.95rem}
-    .proc-card hr{border:0;border-top:1px solid var(--border);width:100%;margin:auto 0 6px;padding-top:8px}
-    .step-pill{align-self:flex-start;padding:9px 18px;border-radius:30px;border:1px solid var(--border);background:rgba(255,255,255,.06);font-size:.9rem}
-    .proc-note{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;max-width:560px;width:100%;margin:28px auto 0;padding:24px}
-    .proc-note b{display:flex;align-items:center;gap:10px;font-size:1rem}
-    .proc-note svg{width:24px;height:24px;fill:none;stroke:var(--text);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-    .proc-note span{color:var(--muted);font-size:.9rem}
-  
-    /* ---------- Contact ---------- */
-    .contact{max-width:560px}
-    .contact p{color:var(--muted);margin-bottom:22px;line-height:1.7}
-    .links{display:flex;gap:14px;flex-wrap:wrap}
-    .icons{display:flex;gap:14px;flex-wrap:wrap}
-    .icon-btn{
-      width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
-      color:var(--text);text-decoration:none;border:1px solid var(--border);background:rgba(255,255,255,.08);
-      transition:.25s;
-    }
-    .icon-btn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-    .icons.sm{justify-content:center}
-    .icons.sm .icon-btn{width:46px;height:46px}
-    .icons.sm .icon-btn svg{width:20px;height:20px}
-    .toast{
-      position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);
-      z-index:120;padding:12px 22px;border-radius:30px;background:rgba(20,18,16,.9);color:var(--text);
-      border:1px solid var(--accent);font-size:.9rem;opacity:0;pointer-events:none;transition:.3s;
-    }
-    .toast.show{opacity:1;transform:translate(-50%,0)}
-    footer{background:#0b0a09;scroll-margin-top:40px;padding:56px 6vw calc(36px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.85rem;display:flex;flex-direction:column;gap:40px}
-    .foot-card{max-width:560px;padding:24px;text-align:center}
-    .foot-card b{display:block;color:var(--text);font-size:1rem;margin-bottom:6px}
-    .foot-cols{display:flex;gap:clamp(40px,12vw,120px);flex-wrap:wrap}
-    .foot-col{display:flex;flex-direction:column;gap:12px}
-    .foot-col h4{font-weight:400;color:var(--muted);font-size:.9rem}
-    .foot-col a{color:var(--text);text-decoration:none;font-weight:700;font-size:1.05rem;transition:.2s;width:fit-content}
-    .copy-line{color:var(--muted);font-size:.85rem;text-align:center;width:100%;margin-top:28px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12)}
-  
-  
-    /* ---------- Phones & portrait screens ---------- */
-    @media (max-aspect-ratio:1/1){
-      .bg-video{object-position:center 30%}
-    }
-    @media (max-width:760px){
-      .glass{padding:22px}
-      nav{backdrop-filter:blur(10px)}
-      section{padding-block:130px 90px}
-      #home{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
-      .contact{max-width:100%}
-    }
-    @media (max-width:380px){
-      .logo{font-size:.9rem}
-      .pill-btn{gap:10px;padding-left:18px}
-    }
-  
-    /* ---------- Welcome screen ---------- */
-    #intro{
-      position:fixed; inset:0; z-index:90;
-      background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.78)),url("bg.jpg") 62% 30%/cover #0b0a09;
-      display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:14px;
-      padding:24px 24px 14vh; text-align:center; cursor:pointer;
-      transition:opacity .9s ease, visibility .9s ease;
-      animation:introOut .9s ease 3.4s forwards;
-    }
-    #intro.done{opacity:0;visibility:hidden}
-    #intro .i-small{color:rgba(255,255,255,.8);letter-spacing:.35em;text-transform:uppercase;font-size:.85rem;opacity:0;animation:introUp .9s ease .3s forwards}
-    #intro .i-big{font-size:clamp(2.2rem,7vw,4.6rem);font-weight:800;line-height:1.15;max-width:900px;opacity:0;animation:introUp 1s ease .7s forwards}
-    #intro .i-line{width:0;height:2px;background:#fff;border-radius:2px;animation:introLine 1.2s ease 1.3s forwards}
-    html[lang="ar"] #intro .i-small{letter-spacing:0}
-    @keyframes introUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-    @keyframes introLine{to{width:min(220px,50vw)}}
-    @keyframes introOut{to{opacity:0;visibility:hidden}}
-    @media (hover:none){#intro{cursor:auto}}
-    @media (prefers-reduced-motion:reduce){#intro .i-small,#intro .i-big{animation:none;opacity:1}#intro .i-line{animation:none;width:160px}}
-  
-    .reveal{opacity:0;transform:translateY(60px) scale(.96);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
-    /* cards slide in from the side, alternating left and right */
-    .glass.reveal{transform:translateX(-80px)}
-    .glass.reveal:nth-child(even){transform:translateX(80px)}
-    .reveal.in,.glass.reveal.in,.glass.reveal:nth-child(even).in{opacity:1;transform:none}
-    @media (prefers-reduced-motion:reduce){
-      .reveal{opacity:1;transform:none;transition:none}
-    }
-  </style>
-  
-  <div id="intro" role="status" aria-live="polite">
-    <p class="i-small" data-i18n="intro_small">Sara Mahmoud</p>
-    <div class="i-big" data-i18n="intro_big">Welcome to my portfolio</div>
-    <span class="i-line"></span>
+    .links.open{opacity:1;pointer-events:auto;transform:none}
+    .links li a{display:block;padding:14px 18px;font-size:1rem}
+  }
+
+  section{overflow-x:clip;min-height:100vh;min-height:100svh;padding:150px 6vw 110px;display:flex;flex-direction:column;justify-content:center}
+
+  /* ---------- Separate pages ---------- */
+  section.view{display:none}
+  section.view.active{display:flex;animation:pageIn .6s ease both}
+  section.view:not(#home){background:#0b0a09;min-height:auto;justify-content:flex-start;padding:130px 6vw 56px}
+  @keyframes pageIn{from{opacity:0}to{opacity:1}}
+    body.is-home section.view:not(#home){padding-top:84px}
+  body.is-home #services{position:relative;z-index:1;margin-top:-34px;border-radius:34px 34px 0 0}
+  @media (max-width:760px){section.view:not(#home){padding-block:104px 44px} body.is-home section.view:not(#home){padding-top:64px}}
+  @media (prefers-reduced-motion:reduce){section.view.active{animation:none}}
+
+  /* ---------- Infinite marquee (Home) ---------- */
+  .marquee{width:100%;max-width:560px;align-self:center;margin:20px auto 0;background:transparent;overflow:hidden;padding:12px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .marquee-track{display:flex;width:max-content;animation:marquee 32s linear infinite}
+  .marquee-half{display:flex;flex-shrink:0}
+  .marquee-pill{display:inline-flex;align-items:center;gap:8px;margin-right:12px;padding:10px 20px;border-radius:9999px;background:var(--glass);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(8px);color:#d4d4d4;font-size:.95rem;white-space:nowrap}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+
+  /* ---------- Start Your Project chat ---------- */
+  #chat{position:fixed;inset:0;z-index:120;display:none;align-items:flex-end;justify-content:flex-end;padding:20px;background:rgba(0,0,0,.5);backdrop-filter:blur(4px)}
+  #chat.open{display:flex}
+  .chat-panel{width:min(380px,100%);max-height:min(560px,calc(100svh - 40px));display:flex;flex-direction:column;background:rgba(18,16,14,.95);border:1px solid var(--border);border-radius:24px;overflow:hidden;animation:chatUp .35s ease}
+  .chat-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--border)}
+  .chat-avatar{width:40px;height:40px;border-radius:50%;background:var(--accent);color:#1a1510;display:flex;align-items:center;justify-content:center;font-weight:800}
+  .chat-who{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+  .chat-who b{font-size:1rem}
+  .chat-who span{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:.8rem}
+  .chat-who span::before{content:"";width:8px;height:8px;border-radius:50%;background:#3ecf6e}
+  .chat-x{width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:var(--text);font-size:1.2rem;line-height:1;cursor:pointer}
+  .chat-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:10px;min-height:230px}
+  .msg{max-width:84%;padding:10px 14px;border-radius:18px;line-height:1.5;font-size:.95rem;animation:msgIn .3s ease}
+  .msg.bot{align-self:flex-start;background:rgba(255,255,255,.1);border-end-start-radius:6px}
+  .msg.me{align-self:flex-end;background:var(--accent);color:#1a1510;border-end-end-radius:6px}
+  .msg.typing{display:flex;gap:5px;padding:14px 16px}
+  .msg.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:dot 1s infinite ease-in-out}
+  .msg.typing span:nth-child(2){animation-delay:.15s}
+  .msg.typing span:nth-child(3){animation-delay:.3s}
+  .chat-foot{padding:6px 18px 18px}
+  .chat-foot a{display:none;text-align:center;width:100%}
+  .chat-panel.done .chat-foot a{display:block}
+  .chat-foot form{display:none;flex-direction:column;gap:8px}
+  .chat-panel.ask .chat-foot form{display:flex}
+  .chat-foot input{width:100%;font:inherit;color:var(--text);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px 14px;outline:none}
+  .chat-foot input:focus{border-color:var(--accent)}
+  .chat-foot form button{border:0;cursor:pointer;font:inherit;font-weight:700;border-radius:14px;padding:12px}
+  .chat-panel.done .chat-foot a{animation:waPop .7s cubic-bezier(.2,.9,.3,1.4) both, waGlow 1.8s ease-in-out .7s infinite;position:relative;overflow:hidden}
+  .chat-panel.done .chat-foot a::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:waShine 2.2s ease-in-out .9s infinite}
+  @keyframes waPop{from{opacity:0;transform:translateY(14px) scale(.85)}to{opacity:1;transform:none}}
+  @keyframes waGlow{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.0)}50%{box-shadow:0 0 0 8px rgba(37,211,102,.22)}}
+  @keyframes waShine{0%{left:-60%}60%,100%{left:130%}}
+  @keyframes chatUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes dot{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-4px)}}
+  @media (max-width:760px){#chat{padding:12px;justify-content:center}}
+  @media (prefers-reduced-motion:reduce){.chat-panel,.msg{animation:none}}
+
+  /* ---------- Hero ---------- */
+  #home{position:relative;min-height:100vh;min-height:100svh;align-items:flex-start;justify-content:flex-end;padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
+  .tagline{max-width:420px;font-size:clamp(1.05rem,2.2vw,1.35rem);line-height:1.5;font-weight:500;color:var(--text)}
+  .cta{margin:22px 0 clamp(28px,6vw,56px)}
+  .pill-btn{
+    display:inline-flex;align-items:center;gap:14px;padding:8px 8px 8px 24px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.25);backdrop-filter:blur(8px);
+    color:var(--text);text-decoration:none;font-weight:600;transition:.25s;
+  }
+  .pill-btn .arrow{
+    width:42px;height:42px;border-radius:50%;background:var(--text);color:#1a1510;
+    display:inline-flex;align-items:center;justify-content:center;transition:.25s;
+  }
+  .pill-btn .arrow svg{width:18px;height:18px}
+  html[dir="rtl"] .pill-btn{padding:8px 24px 8px 8px}
+  .hello{color:var(--accent);letter-spacing:.3em;text-transform:uppercase;font-size:.85rem;margin-bottom:10px}
+  .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  h1{font-size:clamp(2.6rem,8vw,6rem);line-height:1.1;font-weight:800;max-width:900px}
+  h1 span{color:var(--accent)}
+  .role{margin-top:14px;font-size:clamp(1.1rem,2.5vw,1.6rem);color:var(--muted);min-height:2em}
+  .role b{color:var(--text);border-inline-end:2px solid var(--accent);padding-inline-end:4px;animation:blink .8s infinite}
+  @keyframes blink{50%{border-color:transparent}}
+  .btn{
+    padding:14px 30px;border-radius:50px;text-decoration:none;font-weight:600;
+    border:1px solid var(--accent);color:var(--accent);transition:.25s;display:inline-block;
+  }
+  .btn.fill{background:var(--accent);color:#1a1510}
+
+  h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:32px;text-align:center;width:fit-content;max-width:100%;margin-inline:auto}
+  h2::after{content:"";display:block;width:100%;height:.5em;margin:.1em auto 0;background:var(--accent);-webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20220%2040%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cfilter%20id%3D%22r%22%20x%3D%22-5%25%22%20y%3D%22-30%25%22%20width%3D%22110%25%22%20height%3D%22160%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.7%22%20numOctaves%3D%221%22%20seed%3D%223%22/%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20scale%3D%221.6%22/%3E%3C/filter%3E%3C/defs%3E%3Cg%20filter%3D%22url%28%23r%29%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20stroke-width%3D%227%22%20d%3D%22M7%2011%20Q110%204%20213%208%22/%3E%3Cpath%20stroke-width%3D%2211%22%20d%3D%22M28%2029%20Q120%2015%20211%2011%22/%3E%3Cpath%20stroke-width%3D%2210%22%20d%3D%22M30%2030%20L98%2031%22/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20220%2040%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cfilter%20id%3D%22r%22%20x%3D%22-5%25%22%20y%3D%22-30%25%22%20width%3D%22110%25%22%20height%3D%22160%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.7%22%20numOctaves%3D%221%22%20seed%3D%223%22/%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20scale%3D%221.6%22/%3E%3C/filter%3E%3C/defs%3E%3Cg%20filter%3D%22url%28%23r%29%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20stroke-width%3D%227%22%20d%3D%22M7%2011%20Q110%204%20213%208%22/%3E%3Cpath%20stroke-width%3D%2211%22%20d%3D%22M28%2029%20Q120%2015%20211%2011%22/%3E%3Cpath%20stroke-width%3D%2210%22%20d%3D%22M30%2030%20L98%2031%22/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat}
+  .about-card p{font-size:1.05rem}
+
+  /* ---------- Glass cards ---------- */
+  .glass{
+    background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:20px;
+    padding:28px;
+  }
+  .about-grid{display:grid;grid-template-columns:1fr;gap:20px;width:100%;max-width:760px;margin-inline:auto}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr}}
+  .about p{color:var(--muted);line-height:1.8}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .chip{padding:8px 16px;border-radius:30px;border:1px solid var(--border);background:rgba(255,255,255,.06);font-size:.9rem;transition:.2s}
+
+  /* ---------- Projects (3D tilt) ---------- */
+  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),400px));justify-content:center;gap:24px;width:100%;max-width:1100px;margin-inline:auto}
+  .card{
+    position:relative;overflow:hidden;
+  }
+  .card h3{margin:10px 0 8px}
+  .card p{color:var(--muted);line-height:1.7;font-size:.95rem}
+  .tag{font-size:.75rem;letter-spacing:.15em;color:#fff;text-transform:uppercase}
+  .card a{display:inline-block;margin-top:16px;color:#fff;text-decoration:none;font-weight:600}
+  .card a::after{content:"";position:absolute;inset:0}
+
+  /* ---------- Services (under the marquee) ---------- */
+  #services h2{margin-bottom:14px}
+  .svc-cta{display:flex;justify-content:center;margin:0 0 44px}
+  .svc-grid{display:grid;grid-template-columns:1fr;gap:20px;width:100%;max-width:560px;margin-inline:auto}
+  .svc-card{display:flex;flex-direction:column;gap:14px;padding:28px}
+  .svc-head{display:flex;align-items:center;gap:14px}
+  .svc-head svg{width:26px;height:26px;flex-shrink:0;fill:none;stroke:var(--text);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .svc-head h3{font-size:1.05rem}
+  .svc-card p{color:var(--muted);line-height:1.7;font-size:.95rem}
+
+  /* ---------- Process ---------- */
+  #process h2{margin-bottom:0}
+  .proc-sub{text-align:center;color:var(--muted);max-width:520px;margin:0 auto 48px;line-height:1.6}
+  .proc-grid{display:grid;grid-template-columns:1fr;gap:20px;width:100%;max-width:560px;margin-inline:auto}
+  .proc-card{display:flex;flex-direction:column;gap:14px;padding:28px}
+  .proc-card svg{width:30px;height:30px;fill:none;stroke:var(--text);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:22px}
+  .proc-card h3{font-size:1.05rem}
+  .proc-card p{color:var(--muted);line-height:1.7;font-size:.95rem}
+  .proc-card hr{border:0;border-top:1px solid var(--border);width:100%;margin:auto 0 6px;padding-top:8px}
+  .step-pill{align-self:flex-start;padding:9px 18px;border-radius:30px;border:1px solid var(--border);background:rgba(255,255,255,.06);font-size:.9rem}
+  .proc-note{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;max-width:560px;width:100%;margin:28px auto 0;padding:24px}
+  .proc-note b{display:flex;align-items:center;gap:10px;font-size:1rem}
+  .proc-note svg{width:24px;height:24px;fill:none;stroke:var(--text);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .proc-note span{color:var(--muted);font-size:.9rem}
+
+  /* ---------- Contact ---------- */
+  .contact{max-width:560px}
+  .contact p{color:var(--muted);margin-bottom:22px;line-height:1.7}
+  .links{display:flex;gap:14px;flex-wrap:wrap}
+  .icons{display:flex;gap:14px;flex-wrap:wrap}
+  .icon-btn{
+    width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
+    color:var(--text);text-decoration:none;border:1px solid var(--border);background:rgba(255,255,255,.08);
+    transition:.25s;
+  }
+  .icon-btn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .icons.sm{justify-content:center}
+  .icons.sm .icon-btn{width:46px;height:46px}
+  .icons.sm .icon-btn svg{width:20px;height:20px}
+  .toast{
+    position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);
+    z-index:120;padding:12px 22px;border-radius:30px;background:rgba(20,18,16,.9);color:var(--text);
+    border:1px solid var(--accent);font-size:.9rem;opacity:0;pointer-events:none;transition:.3s;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  footer{background:#0b0a09;scroll-margin-top:40px;padding:56px 6vw calc(36px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.85rem;display:flex;flex-direction:column;gap:40px}
+  .foot-card{max-width:560px;padding:24px;text-align:center}
+  .foot-card b{display:block;color:var(--text);font-size:1rem;margin-bottom:6px}
+  .foot-cols{display:flex;gap:clamp(40px,12vw,120px);flex-wrap:wrap}
+  .foot-col{display:flex;flex-direction:column;gap:12px}
+  .foot-col h4{font-weight:400;color:var(--muted);font-size:.9rem}
+  .foot-col a{color:var(--text);text-decoration:none;font-weight:700;font-size:1.05rem;transition:.2s;width:fit-content}
+  .copy-line{color:var(--muted);font-size:.85rem;text-align:center;width:100%;margin-top:28px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12)}
+
+
+  /* ---------- Phones & portrait screens ---------- */
+  @media (min-aspect-ratio:1/1){
+    .tagline{max-width:max(220px,calc(50vw - 37.5vh - 6vw - 24px))}
+  }
+  @media (max-aspect-ratio:1/1){
+    .bg-video{top:64px;left:0;width:100%;height:auto;transform:none;object-position:center top;-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent);mask-image:linear-gradient(180deg,#000 82%,transparent)}
+  }
+  @media (max-width:760px){
+    .glass{padding:22px}
+    nav{backdrop-filter:blur(10px)}
+    section{padding-block:130px 90px}
+    #home{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+    .contact{max-width:100%}
+  }
+  @media (max-width:380px){
+    .logo{font-size:.9rem}
+    .pill-btn{gap:10px;padding-left:18px}
+  }
+
+  /* ---------- Welcome screen ---------- */
+  #intro{
+    position:fixed; inset:0; z-index:90;
+    background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.78)),url("bg.jpg") 62% 30%/cover #0b0a09;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:14px;
+    padding:24px 24px 14vh; text-align:center; cursor:pointer;
+    transition:opacity .9s ease, visibility .9s ease;
+    animation:introOut .9s ease 3.4s forwards;
+  }
+  #intro.done{opacity:0;visibility:hidden}
+  #intro .i-small{color:rgba(255,255,255,.8);letter-spacing:.35em;text-transform:uppercase;font-size:.85rem;opacity:0;animation:introUp .9s ease .3s forwards}
+  #intro .i-big{font-size:clamp(2.2rem,7vw,4.6rem);font-weight:800;line-height:1.15;max-width:900px;opacity:0;animation:introUp 1s ease .7s forwards}
+  #intro .i-line{width:0;height:2px;background:#fff;border-radius:2px;animation:introLine 1.2s ease 1.3s forwards}
+  html[lang="ar"] #intro .i-small{letter-spacing:0}
+  @keyframes introUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes introLine{to{width:min(220px,50vw)}}
+  @keyframes introOut{to{opacity:0;visibility:hidden}}
+  @media (hover:none){#intro{cursor:auto}}
+  @media (prefers-reduced-motion:reduce){#intro .i-small,#intro .i-big{animation:none;opacity:1}#intro .i-line{animation:none;width:160px}}
+
+  .reveal{opacity:0;transform:translateY(60px) scale(.96);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+  /* cards slide in from the side, alternating left and right */
+  .glass.reveal{transform:translateX(-80px)}
+  .glass.reveal:nth-child(even){transform:translateX(80px)}
+  .reveal.in,.glass.reveal.in,.glass.reveal:nth-child(even).in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+
+<div id="intro" role="status" aria-live="polite">
+  <p class="i-small" data-i18n="intro_small">Sara Mahmoud</p>
+  <div class="i-big" data-i18n="intro_big">Welcome to my portfolio</div>
+  <span class="i-line"></span>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<h1 class="sr-only" data-i18n="site_h1">Sara Mahmoud – Web Developer Portfolio</h1>
+<nav>
+  <div class="nav-right">
+    <ul class="links" id="links">
+      <li><a href="#home" data-i18n="nav_home">Home</a></li>
+      <li><a href="#about" data-i18n="nav_about">About</a></li>
+      <li><a href="#services" data-i18n="nav_services">Services</a></li>
+      <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
+      <li><a href="#process" data-i18n="nav_process">Process</a></li>
+    </ul>
+    <button class="lang" id="lang" type="button" aria-label="Switch language">العربية</button>
+    <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
   </div>
-  
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  
-  <h1 class="sr-only" data-i18n="site_h1">Sara Mahmoud – Web Developer Portfolio</h1>
-  <nav>
-    <div class="nav-right">
-      <ul class="links" id="links">
-        <li><a href="#home" data-i18n="nav_home">Home</a></li>
-        <li><a href="#about" data-i18n="nav_about">About</a></li>
-        <li><a href="#services" data-i18n="nav_services">Services</a></li>
-        <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
-        <li><a href="#process" data-i18n="nav_process">Process</a></li>
-      </ul>
-      <button class="lang" id="lang" type="button" aria-label="Switch language">العربية</button>
-      <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
-    </div>
-  </nav>
-  
-  
-  <section id="home" class="view active">
-    <div class="bg" id="bg"><img class="bg-video" id="bgv" src="bg.jpg" alt=""></div>
-    <div class="bg-overlay" id="overlay"></div>
-    <p class="tagline reveal" data-i18n="tagline">I design and build fast, beautiful websites and interactive experiences that bring ideas to life.</p>
-    <div class="cta reveal">
-      <a class="pill-btn" id="startBtn" href="https://logogit15-ux.github.io/bot-/" target="_blank" rel="noopener"><span data-i18n="cta_start">Start Your Project</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
-    </div>
-  </section>
-  
-  <section id="about" class="about view">
-    <h2 class="reveal" data-i18n="about_h">About me</h2>
-    <div class="about-grid">
-      <div class="glass about-card reveal"><p data-i18n="about_p">I'm Sara, a Web Developer specializing in transforming ideas into modern websites. I combine the power of Front-End technologies like React, Next.js, and Tailwind CSS with the flexibility of building and customizing websites and online stores using WordPress, delivering comprehensive projects that blend high performance with responsive design.</p></div>
-      <div class="glass reveal">
-        <p style="margin-bottom:14px;color:var(--text);font-weight:600" data-i18n="skills">Skills</p>
-        <div class="chips">
-          <span class="chip">HTML</span><span class="chip">CSS</span>
-          <span class="chip">JavaScript</span><span class="chip">React</span>
-          <span class="chip">Next.js</span><span class="chip">Tailwind CSS</span><span class="chip">WordPress</span>
-        </div>
+</nav>
+
+
+<section id="home" class="view active">
+  <div class="bg" id="bg"><img class="bg-video" id="bgv" src="bg.jpg" alt=""></div>
+  <div class="bg-overlay" id="overlay"></div>
+  <p class="tagline reveal" data-i18n="tagline">I design and build fast, beautiful websites and interactive experiences that bring ideas to life.</p>
+  <div class="cta reveal">
+    <a class="pill-btn" id="startBtn" href="https://logogit15-ux.github.io/bot-/" target="_blank" rel="noopener"><span data-i18n="cta_start">Start Your Project</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+  </div>
+</section>
+
+<section id="about" class="about view">
+  <h2 class="reveal" data-i18n="about_h">About me</h2>
+  <div class="about-grid">
+    <div class="glass about-card reveal"><p data-i18n="about_p">I'm Sara, a Web Developer specializing in transforming ideas into modern websites. I combine the power of Front-End technologies like React, Next.js, and Tailwind CSS with the flexibility of building and customizing websites and online stores using WordPress, delivering comprehensive projects that blend high performance with responsive design.</p></div>
+    <div class="glass reveal">
+      <p style="margin-bottom:14px;color:var(--text);font-weight:600" data-i18n="skills">Skills</p>
+      <div class="chips">
+        <span class="chip">HTML</span><span class="chip">CSS</span>
+        <span class="chip">JavaScript</span><span class="chip">React</span>
+        <span class="chip">Next.js</span><span class="chip">Tailwind CSS</span><span class="chip">WordPress</span>
       </div>
-    </div>
-  </section>
-  
-  <section id="services" class="view">
-    <h2 class="reveal" data-i18n="svc_h">How I Can Help You</h2>
-    <div class="svc-cta reveal">
-      <a class="pill-btn js-start" href="https://wa.me/201023874936" target="_blank" rel="noopener"><span data-i18n="svc_btn">Let's Talk</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
-    </div>
-    <div class="svc-grid">
-      <article class="glass svc-card reveal">
-        <div class="svc-head"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><h3 data-i18n="sv1_t">T1</h3></div>
-        <p data-i18n="sv1_d">D1</p>
-      </article>
-      <article class="glass svc-card reveal">
-        <div class="svc-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><h3 data-i18n="sv2_t">T2</h3></div>
-        <p data-i18n="sv2_d">D2</p>
-      </article>
-      <article class="glass svc-card reveal">
-        <div class="svc-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg><h3 data-i18n="sv3_t">T3</h3></div>
-        <p data-i18n="sv3_d">D3</p>
-      </article>
-      <article class="glass svc-card reveal">
-        <div class="svc-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg><h3 data-i18n="sv5_t">T5</h3></div>
-        <p data-i18n="sv5_d">D5</p>
-      </article>
-    </div>
-    <div class="marquee" dir="ltr" aria-label="Services"><div class="marquee-track" id="marqueeTrack"></div></div>
-  </section>
-  
-  <section id="projects" class="view">
-    <h2 class="reveal" data-i18n="proj_h">Projects</h2>
-    <div class="projects">
-      <article class="glass card reveal"><span class="tag" data-i18n="p1_tag">Website</span><h3 data-i18n="p1_t">Elebiary Portfolio</h3><p data-i18n="p1_d">A bilingual (English and Arabic) portfolio website for a graphic designer, with About, Services, Brands, Process, FAQ and WhatsApp contact.</p><a href="https://logogit15-ux.github.io/elebiary.com/" target="_blank" rel="noopener" data-i18n="p_link">View project →</a></article>
-    </div>
-  </section>
-  
-  <section id="process" class="view">
-    <h2 class="reveal" data-i18n="proc_h">Process is Everything</h2>
-    <p class="proc-sub reveal" data-i18n="proc_sub">A simple, clear process from the first message to launch day</p>
-    <div class="proc-grid">
-      <article class="glass proc-card reveal">
-        <h3 data-i18n="s1_t">Let's Get in Touch</h3>
-        <p data-i18n="s1_d">Message me on WhatsApp or email and tell me about your project, your goals and your ideas, so we can agree on what to build.</p>
-        <hr>
-        <span class="step-pill" data-i18n="step1">Step 1</span>
-      </article>
-      <article class="glass proc-card reveal">
-        <h3 data-i18n="s2_t">Start Development</h3>
-        <p data-i18n="s2_d">I turn the plan into a fast, responsive website or online store, built with React, Next.js, Tailwind CSS or WordPress.</p>
-        <hr>
-        <span class="step-pill" data-i18n="step2">Step 2</span>
-      </article>
-      <article class="glass proc-card reveal">
-        <h3 data-i18n="s3_t">Launch and Hand Over</h3>
-        <p data-i18n="s3_d">You receive a tested, polished website that is ready to go live, with support after launch.</p>
-        <hr>
-        <span class="step-pill" data-i18n="step3">Step 3</span>
-      </article>
-    </div>
-    <div class="glass proc-note reveal">
-      <b data-i18n="note_t">I'm with you at every step</b>
-      <span data-i18n="note_d">Working alongside you from idea to launch for a smooth experience.</span>
-    </div>
-  </section>
-  
-  <footer id="socials">
-    <div class="foot-cols">
-      <div class="foot-col">
-        <h4 data-i18n="f_socials">(socials)</h4>
-        <a href="https://wa.me/201023874936" target="_blank" rel="noopener">WhatsApp</a>
-        <a href="https://www.linkedin.com/in/sara-m-7ab512380" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:saramahmoud.dev@gmail.com" data-copy="saramahmoud.dev@gmail.com" data-toast="toast_email" data-i18n="f_email">Email</a>
-      </div>
-      <div class="foot-col">
-        <h4 data-i18n="f_nav">(navigation)</h4>
-        <a href="#home" data-i18n="nav_home">Home</a>
-        <a href="#services" data-i18n="nav_services">Services</a>
-        <a href="#projects" data-i18n="nav_projects">Projects</a>
-        <a href="#process" data-i18n="nav_process">Process</a>
-        <a href="#about" data-i18n="nav_about">About</a>
-      </div>
-    </div>
-    <div class="copy-line" data-i18n="copyright">© 2026 All rights reserved</div>
-  </footer>
-  
-  <div id="chat" role="dialog" aria-modal="true" aria-labelledby="chatName">
-    <div class="chat-panel" id="chatPanel">
-      <div class="chat-head">
-        <div class="chat-avatar" id="chatAvatar">S</div>
-        <div class="chat-who"><b id="chatName">Sara Mahmoud</b><span id="chatStatus">Online now</span></div>
-        <button class="chat-x" id="chatClose" type="button" aria-label="Close">&times;</button>
-      </div>
-      <div class="chat-body" id="chatBody"></div>
-      <div class="chat-foot"><form id="chatForm" autocomplete="off"><input id="chatName2" name="name" required maxlength="40" data-i18n-ph="c_ph_name" placeholder="Your name"><input id="chatMsg" name="msg" maxlength="140" data-i18n-ph="c_ph_msg" placeholder="Your project (optional)"><button type="submit" class="btn fill" id="chatSend" data-i18n="c_send">Send</button></form><a class="btn fill" id="chatWa" href="https://wa.me/201023874936" target="_blank" rel="noopener">Continue on WhatsApp</a></div>
     </div>
   </div>
-  
-  <script>
-  (() => {
-    const $ = id => document.getElementById(id);
-  
-    /* ---------- Languages ---------- */
-    const T = {
-      en:{
-        logo:'SARA MAHMOUD', svc_h:'How I Can Help You', svc_btn:"Let's Talk",
-        sv1_t:'Website Design & Development', sv1_d:'Fast, responsive websites built with React, Next.js and Tailwind CSS, designed around your brand and your goals.',
-        sv2_t:'WordPress & Online Stores', sv2_d:'Custom WordPress websites and online stores, built and adjusted to fit the way your business sells.',
-        sv5_t:'WhatsApp & Social Links', sv5_d:'I connect your site to WhatsApp and your social accounts, so visitors can reach you in one tap.', sv3_t:'Speed & SEO', sv3_d:'Sites that load quickly and are built to be found, so more of the right people reach you.',
-        nav_home:'Home', nav_services:'Services',  site_h1:'Sara Mahmoud – Web Developer Portfolio', copyright:'© 2026 All rights reserved', chat_name:'Sara Mahmoud', chat_status:'Online now', c1:'Hi! 👋 Glad you stopped by.', c2:"I'm Sara. What's your name, and what would you like to build?", c_user:"I'd like to start a project", c3:'Nice to meet you, {n}! Tap the button below and we will continue on WhatsApp.', c_ph_name:'Your name', c_ph_msg:'Your project (optional)', c_send:'Send', wa_hi:"Hi Sara, I'm {n}.", c_btn:'Continue on WhatsApp', wa_text:"Hi Sara, I'd like to start a project.", nav_about:'About', nav_projects:'Projects', nav_contact:'Contact',
-        hello:"Hello, I'm", tagline:'I design and build fast, beautiful websites and interactive experiences that bring ideas to life.', cta_start:'Start Your Project', name:'Sara <span>Mahmoud</span>', build:'I build',
-        words:['modern websites','clean, fast code','interactive experiences'],
-        cta1:'View my work', cta2:'Get in touch',
-        about_h:'About me',
-        about_p:"I'm Sara, a Web Developer specializing in transforming ideas into modern websites. I combine the power of Front-End technologies like React, Next.js, and Tailwind CSS with the flexibility of building and customizing websites and online stores using WordPress, delivering comprehensive projects that blend high performance with responsive design.",
-        skills:'Skills', proj_h:'Projects',
-        p1_tag:'Website', p1_t:'NOUR ELDIN EL EBIARY', p1_d:'A bilingual (English and Arabic) portfolio website for a graphic designer, with About, Services, Brands, Process, FAQ and WhatsApp contact.', p2_tag:'Mobile', p2_t:'Project Two', p3_tag:'API', p3_t:'Project Three',
-        p_d:'Short description of what it does and the tech you used.', p_link:'View project →',
-        contact_h:"Let's work together", contact_p:"Have a project or an opportunity? I'd love to hear from you.",
-        c_email:'Email', c_phone:'Phone / WhatsApp', toast_email:'Email address copied', toast_phone:'Phone number copied', wa:'Chat on WhatsApp',
-        f_socials:'(socials)', f_nav:'(navigation)', f_email:'Email', proc_h:'Process is Everything', proc_sub:'A simple, clear process from the first message to launch day', nav_process:'Process', s1_t:"Let's Get in Touch", s1_d:'Message me on WhatsApp or email and tell me about your project, your goals and your ideas, so we can agree on what to build.', s2_t:'Start Development', s2_d:'I turn the plan into a fast, responsive website or online store, built with React, Next.js, Tailwind CSS or WordPress.', s3_t:'Launch and Hand Over', s3_d:'You receive a tested, polished website that is ready to go live, with support after launch.', step1:'Step 1', step2:'Step 2', step3:'Step 3', note_t:"I'm with you at every step", note_d:'Working alongside you from idea to launch for a smooth experience.',
-        intro_small:'Sara Mahmoud', intro_big:'Welcome to my portfolio', footer_name:'Sara Mahmoud', toggle:'العربية'
-      },
-      ar:{
-        logo:'سارة محمود', svc_h:'كيف يمكنني مساعدتك', svc_btn:'لنتحدث',
-        sv1_t:'تصميم وتطوير المواقع', sv1_d:'مواقع سريعة ومتجاوبة مبنية بـ React وNext.js وTailwind CSS، ومصممة حسب هويتك وأهدافك.',
-        sv2_t:'ووردبريس والمتاجر الإلكترونية', sv2_d:'مواقع ووردبريس ومتاجر إلكترونية مخصصة، تُبنى وتُعدَّل لتناسب طريقة بيعك.',
-        sv5_t:'روابط واتساب والسوشيال', sv5_d:'أربط موقعك بواتساب وحساباتك على السوشيال، ليتواصل معك الزائر بضغطة واحدة.', sv3_t:'السرعة وتحسين محركات البحث', sv3_d:'مواقع تفتح بسرعة ومبنية لتظهر في نتائج البحث، فيصل إليك المزيد من العملاء المناسبين.',
-        nav_home:'الرئيسية', nav_services:'خدماتي',  site_h1:'سارة محمود – مطورة ويب | البورتفوليو', copyright:'© 2026 جميع الحقوق محفوظة', chat_name:'سارة محمود', chat_status:'متصلة الآن', c1:'أهلاً! 👋 سعيدة بزيارتك.', c2:'أنا سارة. ما اسمك، وماذا تريد أن نبني معاً؟', c_user:'أريد بدء مشروع جديد', c3:'تشرفت بمعرفتك يا {n}! اضغط على الزر بالأسفل لنكمل الحديث على واتساب.', c_ph_name:'اسمك', c_ph_msg:'مشروعك (اختياري)', c_send:'إرسال', wa_hi:'مرحباً سارة، أنا {n}.', c_btn:'تابع على واتساب', wa_text:'مرحباً سارة، أريد بدء مشروع.', nav_about:'نبذة عني', nav_projects:'مشاريعي', nav_contact:'تواصل معي',
-        hello:'أهلاً، أنا', tagline:'أصمم وأبني مواقع سريعة وجذابة وتجارب تفاعلية تحوّل الأفكار إلى واقع.', cta_start:'ابدأ مشروعك', name:'سارة <span>محمود</span>', build:'أبني',
-        words:['مواقع ويب حديثة','كود نظيف وسريع','تجارب تفاعلية'],
-        cta1:'شاهد أعمالي', cta2:'تواصل معي',
-        about_h:'نبذة عني',
-        about_p:'أنا سارة، مطوّرة ويب متخصصة في تحويل الأفكار إلى مواقع حديثة. أجمع بين قوة تقنيات الواجهة الأمامية مثل React وNext.js وTailwind CSS ومرونة بناء المواقع والمتاجر الإلكترونية وتخصيصها باستخدام WordPress، لأقدّم مشاريع متكاملة تجمع بين الأداء العالي والتصميم المتجاوب.',
-        skills:'المهارات', proj_h:'مشاريعي',
-        p1_tag:'موقع ويب', p1_t:'نور الدين الأبياري', p1_d:'موقع بورتفوليو لمصمم جرافيك بلغتين (عربي وإنجليزي)، فيه أقسام عني والخدمات والبراندات والعملية والأسئلة الشائعة وتواصل واتساب.', p2_tag:'موبايل', p2_t:'المشروع الثاني', p3_tag:'API', p3_t:'المشروع الثالث',
-        p_d:'وصف قصير لما يفعله المشروع والتقنيات المستخدمة فيه.', p_link:'عرض المشروع ←',
-        contact_h:'لنعمل معاً', contact_p:'عندك مشروع أو فرصة عمل؟ يسعدني أن أسمع منك.',
-        c_email:'البريد الإلكتروني', c_phone:'الهاتف / واتساب', toast_email:'تم نسخ البريد الإلكتروني', toast_phone:'تم نسخ رقم الهاتف', wa:'تواصل عبر واتساب',
-        f_socials:'(التواصل)', f_nav:'(التنقل)', f_email:'البريد الإلكتروني', proc_h:'آلية العمل هي كل شيء', proc_sub:'خطوات بسيطة وواضحة من أول رسالة حتى يوم الإطلاق', nav_process:'آلية العمل', s1_t:'لنتواصل', s1_d:'راسلني على واتساب أو البريد الإلكتروني وأخبرني عن مشروعك وأهدافك وأفكارك، لنتفق على ما سنبنيه.', s2_t:'بدء التطوير', s2_d:'أحوّل الخطة إلى موقع أو متجر إلكتروني سريع ومتجاوب، باستخدام React وNext.js وTailwind CSS أو WordPress.', s3_t:'الإطلاق والتسليم', s3_d:'تستلم موقعاً مختبراً ومتقناً وجاهزاً للإطلاق، مع دعم بعد التسليم.', step1:'الخطوة ١', step2:'الخطوة ٢', step3:'الخطوة ٣', note_t:'معك في كل خطوة', note_d:'بجانبك من الفكرة حتى الإطلاق لتجربة سلسة.',
-        intro_small:'سارة محمود', intro_big:'مرحباً بك في البورتفوليو الخاص بي', footer_name:'سارة محمود', toggle:'English'
-      }
-    };
-    /* ---------- Marquee items (rendered twice for a seamless loop) ---------- */
-    const MARQUEE = [
-      { en:'Landing Pages', ar:'صفحات هبوط',     icon:'🪟' },
-      { en:'Optimization',  ar:'تحسين الأداء',    icon:'⚡' },
-      { en:'Custom Code',   ar:'كود مخصص',       icon:'</>' },
-      { en:'SEO',           ar:'تحسين محركات البحث', icon:'🔍' },
-      { en:'WhatsApp & Social', ar:'واتساب وسوشيال', icon:'🔗' },
-      { en:'Framer',        ar:'Framer',         icon:'🎨' }
-    ];
-    function renderMarquee(l){
-      const half = (hidden) => '<div class="marquee-half"' + (hidden ? ' aria-hidden="true"' : '') + '>' +
-        MARQUEE.map(m => '<span class="marquee-pill"><span>' + m.icon.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</span><span>' + m[l] + '</span></span>').join('') + '</div>';
-      $('marqueeTrack').innerHTML = half(false) + half(true);
+</section>
+
+<section id="services" class="view">
+  <h2 class="reveal" data-i18n="svc_h">How I Can Help You</h2>
+  <div class="svc-cta reveal">
+    <a class="pill-btn js-start" href="https://wa.me/201023874936" target="_blank" rel="noopener"><span data-i18n="svc_btn">Let's Talk</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+  </div>
+  <div class="svc-grid">
+    <article class="glass svc-card reveal">
+      <div class="svc-head"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><h3 data-i18n="sv1_t">T1</h3></div>
+      <p data-i18n="sv1_d">D1</p>
+    </article>
+    <article class="glass svc-card reveal">
+      <div class="svc-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><h3 data-i18n="sv2_t">T2</h3></div>
+      <p data-i18n="sv2_d">D2</p>
+    </article>
+    <article class="glass svc-card reveal">
+      <div class="svc-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg><h3 data-i18n="sv3_t">T3</h3></div>
+      <p data-i18n="sv3_d">D3</p>
+    </article>
+    <article class="glass svc-card reveal">
+      <div class="svc-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg><h3 data-i18n="sv5_t">T5</h3></div>
+      <p data-i18n="sv5_d">D5</p>
+    </article>
+  </div>
+  <div class="marquee" dir="ltr" aria-label="Services"><div class="marquee-track" id="marqueeTrack"></div></div>
+</section>
+
+<section id="projects" class="view">
+  <h2 class="reveal" data-i18n="proj_h">Projects</h2>
+  <div class="projects">
+    <article class="glass card reveal"><span class="tag" data-i18n="p1_tag">Website</span><h3 data-i18n="p1_t">Elebiary Portfolio</h3><p data-i18n="p1_d">A bilingual (English and Arabic) portfolio website for a graphic designer, with About, Services, Brands, Process, FAQ and WhatsApp contact.</p><a href="https://logogit15-ux.github.io/elebiary.com/" target="_blank" rel="noopener" data-i18n="p_link">View project →</a></article>
+  </div>
+</section>
+
+<section id="process" class="view">
+  <h2 class="reveal" data-i18n="proc_h">Process is Everything</h2>
+  <p class="proc-sub reveal" data-i18n="proc_sub">A simple, clear process from the first message to launch day</p>
+  <div class="proc-grid">
+    <article class="glass proc-card reveal">
+      <h3 data-i18n="s1_t">Let's Get in Touch</h3>
+      <p data-i18n="s1_d">Message me on WhatsApp or email and tell me about your project, your goals and your ideas, so we can agree on what to build.</p>
+      <hr>
+      <span class="step-pill" data-i18n="step1">Step 1</span>
+    </article>
+    <article class="glass proc-card reveal">
+      <h3 data-i18n="s2_t">Start Development</h3>
+      <p data-i18n="s2_d">I turn the plan into a fast, responsive website or online store, built with React, Next.js, Tailwind CSS or WordPress.</p>
+      <hr>
+      <span class="step-pill" data-i18n="step2">Step 2</span>
+    </article>
+    <article class="glass proc-card reveal">
+      <h3 data-i18n="s3_t">Launch and Hand Over</h3>
+      <p data-i18n="s3_d">You receive a tested, polished website that is ready to go live, with support after launch.</p>
+      <hr>
+      <span class="step-pill" data-i18n="step3">Step 3</span>
+    </article>
+  </div>
+  <div class="glass proc-note reveal">
+    <b data-i18n="note_t">I'm with you at every step</b>
+    <span data-i18n="note_d">Working alongside you from idea to launch for a smooth experience.</span>
+  </div>
+</section>
+
+<footer id="socials">
+  <div class="foot-cols">
+    <div class="foot-col">
+      <h4 data-i18n="f_socials">(socials)</h4>
+      <a href="https://wa.me/201023874936" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://www.linkedin.com/in/sara-m-7ab512380" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:saramahmoud.dev@gmail.com" data-copy="saramahmoud.dev@gmail.com" data-toast="toast_email" data-i18n="f_email">Email</a>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="f_nav">(navigation)</h4>
+      <a href="#home" data-i18n="nav_home">Home</a>
+      <a href="#services" data-i18n="nav_services">Services</a>
+      <a href="#projects" data-i18n="nav_projects">Projects</a>
+      <a href="#process" data-i18n="nav_process">Process</a>
+      <a href="#about" data-i18n="nav_about">About</a>
+    </div>
+  </div>
+  <div class="copy-line" data-i18n="copyright">© 2026 All rights reserved</div>
+</footer>
+
+<div id="chat" role="dialog" aria-modal="true" aria-labelledby="chatName">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-head">
+      <div class="chat-avatar" id="chatAvatar">S</div>
+      <div class="chat-who"><b id="chatName">Sara Mahmoud</b><span id="chatStatus">Online now</span></div>
+      <button class="chat-x" id="chatClose" type="button" aria-label="Close">&times;</button>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-foot"><form id="chatForm" autocomplete="off"><input id="chatName2" name="name" required maxlength="40" data-i18n-ph="c_ph_name" placeholder="Your name"><input id="chatMsg" name="msg" maxlength="140" data-i18n-ph="c_ph_msg" placeholder="Your project (optional)"><button type="submit" class="btn fill" id="chatSend" data-i18n="c_send">Send</button></form><a class="btn fill" id="chatWa" href="https://wa.me/201023874936" target="_blank" rel="noopener">Continue on WhatsApp</a></div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+
+  /* ---------- Languages ---------- */
+  const T = {
+    en:{
+      logo:'SARA MAHMOUD', svc_h:'How I Can Help You', svc_btn:"Let's Talk",
+      sv1_t:'Website Design & Development', sv1_d:'Fast, responsive websites built with React, Next.js and Tailwind CSS, designed around your brand and your goals.',
+      sv2_t:'WordPress & Online Stores', sv2_d:'Custom WordPress websites and online stores, built and adjusted to fit the way your business sells.',
+      sv5_t:'WhatsApp & Social Links', sv5_d:'I connect your site to WhatsApp and your social accounts, so visitors can reach you in one tap.', sv3_t:'Speed & SEO', sv3_d:'Sites that load quickly and are built to be found, so more of the right people reach you.',
+      nav_home:'Home', nav_services:'Services',  site_h1:'Sara Mahmoud – Web Developer Portfolio', copyright:'© 2026 All rights reserved', chat_name:'Sara Mahmoud', chat_status:'Online now', c1:'Hi! 👋 Glad you stopped by.', c2:"I'm Sara. What's your name, and what would you like to build?", c_user:"I'd like to start a project", c3:'Nice to meet you, {n}! Tap the button below and we will continue on WhatsApp.', c_ph_name:'Your name', c_ph_msg:'Your project (optional)', c_send:'Send', wa_hi:"Hi Sara, I'm {n}.", c_btn:'Continue on WhatsApp', wa_text:"Hi Sara, I'd like to start a project.", nav_about:'About', nav_projects:'Projects', nav_contact:'Contact',
+      hello:"Hello, I'm", tagline:'I design and build fast, beautiful websites and interactive experiences that bring ideas to life.', cta_start:'Start Your Project', name:'Sara <span>Mahmoud</span>', build:'I build',
+      words:['modern websites','clean, fast code','interactive experiences'],
+      cta1:'View my work', cta2:'Get in touch',
+      about_h:'About me',
+      about_p:"I'm Sara, a Web Developer specializing in transforming ideas into modern websites. I combine the power of Front-End technologies like React, Next.js, and Tailwind CSS with the flexibility of building and customizing websites and online stores using WordPress, delivering comprehensive projects that blend high performance with responsive design.",
+      skills:'Skills', proj_h:'Projects',
+      p1_tag:'Website', p1_t:'NOUR ELDIN EL EBIARY', p1_d:'A bilingual (English and Arabic) portfolio website for a graphic designer, with About, Services, Brands, Process, FAQ and WhatsApp contact.', p2_tag:'Mobile', p2_t:'Project Two', p3_tag:'API', p3_t:'Project Three',
+      p_d:'Short description of what it does and the tech you used.', p_link:'View project →',
+      contact_h:"Let's work together", contact_p:"Have a project or an opportunity? I'd love to hear from you.",
+      c_email:'Email', c_phone:'Phone / WhatsApp', toast_email:'Email address copied', toast_phone:'Phone number copied', wa:'Chat on WhatsApp',
+      f_socials:'(socials)', f_nav:'(navigation)', f_email:'Email', proc_h:'Process is Everything', proc_sub:'A simple, clear process from the first message to launch day', nav_process:'Process', s1_t:"Let's Get in Touch", s1_d:'Message me on WhatsApp or email and tell me about your project, your goals and your ideas, so we can agree on what to build.', s2_t:'Start Development', s2_d:'I turn the plan into a fast, responsive website or online store, built with React, Next.js, Tailwind CSS or WordPress.', s3_t:'Launch and Hand Over', s3_d:'You receive a tested, polished website that is ready to go live, with support after launch.', step1:'Step 1', step2:'Step 2', step3:'Step 3', note_t:"I'm with you at every step", note_d:'Working alongside you from idea to launch for a smooth experience.',
+      intro_small:'Sara Mahmoud', intro_big:'Welcome to my portfolio', footer_name:'Sara Mahmoud', toggle:'العربية'
+    },
+    ar:{
+      logo:'سارة محمود', svc_h:'كيف يمكنني مساعدتك', svc_btn:'لنتحدث',
+      sv1_t:'تصميم وتطوير المواقع', sv1_d:'مواقع سريعة ومتجاوبة مبنية بـ React وNext.js وTailwind CSS، ومصممة حسب هويتك وأهدافك.',
+      sv2_t:'ووردبريس والمتاجر الإلكترونية', sv2_d:'مواقع ووردبريس ومتاجر إلكترونية مخصصة، تُبنى وتُعدَّل لتناسب طريقة بيعك.',
+      sv5_t:'روابط واتساب والسوشيال', sv5_d:'أربط موقعك بواتساب وحساباتك على السوشيال، ليتواصل معك الزائر بضغطة واحدة.', sv3_t:'السرعة وتحسين محركات البحث', sv3_d:'مواقع تفتح بسرعة ومبنية لتظهر في نتائج البحث، فيصل إليك المزيد من العملاء المناسبين.',
+      nav_home:'الرئيسية', nav_services:'خدماتي',  site_h1:'سارة محمود – مطورة ويب | البورتفوليو', copyright:'© 2026 جميع الحقوق محفوظة', chat_name:'سارة محمود', chat_status:'متصلة الآن', c1:'أهلاً! 👋 سعيدة بزيارتك.', c2:'أنا سارة. ما اسمك، وماذا تريد أن نبني معاً؟', c_user:'أريد بدء مشروع جديد', c3:'تشرفت بمعرفتك يا {n}! اضغط على الزر بالأسفل لنكمل الحديث على واتساب.', c_ph_name:'اسمك', c_ph_msg:'مشروعك (اختياري)', c_send:'إرسال', wa_hi:'مرحباً سارة، أنا {n}.', c_btn:'تابع على واتساب', wa_text:'مرحباً سارة، أريد بدء مشروع.', nav_about:'نبذة عني', nav_projects:'مشاريعي', nav_contact:'تواصل معي',
+      hello:'أهلاً، أنا', tagline:'أصمم وأبني مواقع سريعة وجذابة وتجارب تفاعلية تحوّل الأفكار إلى واقع.', cta_start:'ابدأ مشروعك', name:'سارة <span>محمود</span>', build:'أبني',
+      words:['مواقع ويب حديثة','كود نظيف وسريع','تجارب تفاعلية'],
+      cta1:'شاهد أعمالي', cta2:'تواصل معي',
+      about_h:'نبذة عني',
+      about_p:'أنا سارة، مطوّرة ويب متخصصة في تحويل الأفكار إلى مواقع حديثة. أجمع بين قوة تقنيات الواجهة الأمامية مثل React وNext.js وTailwind CSS ومرونة بناء المواقع والمتاجر الإلكترونية وتخصيصها باستخدام WordPress، لأقدّم مشاريع متكاملة تجمع بين الأداء العالي والتصميم المتجاوب.',
+      skills:'المهارات', proj_h:'مشاريعي',
+      p1_tag:'موقع ويب', p1_t:'نور الدين الأبياري', p1_d:'موقع بورتفوليو لمصمم جرافيك بلغتين (عربي وإنجليزي)، فيه أقسام عني والخدمات والبراندات والعملية والأسئلة الشائعة وتواصل واتساب.', p2_tag:'موبايل', p2_t:'المشروع الثاني', p3_tag:'API', p3_t:'المشروع الثالث',
+      p_d:'وصف قصير لما يفعله المشروع والتقنيات المستخدمة فيه.', p_link:'عرض المشروع ←',
+      contact_h:'لنعمل معاً', contact_p:'عندك مشروع أو فرصة عمل؟ يسعدني أن أسمع منك.',
+      c_email:'البريد الإلكتروني', c_phone:'الهاتف / واتساب', toast_email:'تم نسخ البريد الإلكتروني', toast_phone:'تم نسخ رقم الهاتف', wa:'تواصل عبر واتساب',
+      f_socials:'(التواصل)', f_nav:'(التنقل)', f_email:'البريد الإلكتروني', proc_h:'آلية العمل هي كل شيء', proc_sub:'خطوات بسيطة وواضحة من أول رسالة حتى يوم الإطلاق', nav_process:'آلية العمل', s1_t:'لنتواصل', s1_d:'راسلني على واتساب أو البريد الإلكتروني وأخبرني عن مشروعك وأهدافك وأفكارك، لنتفق على ما سنبنيه.', s2_t:'بدء التطوير', s2_d:'أحوّل الخطة إلى موقع أو متجر إلكتروني سريع ومتجاوب، باستخدام React وNext.js وTailwind CSS أو WordPress.', s3_t:'الإطلاق والتسليم', s3_d:'تستلم موقعاً مختبراً ومتقناً وجاهزاً للإطلاق، مع دعم بعد التسليم.', step1:'الخطوة ١', step2:'الخطوة ٢', step3:'الخطوة ٣', note_t:'معك في كل خطوة', note_d:'بجانبك من الفكرة حتى الإطلاق لتجربة سلسة.',
+      intro_small:'سارة محمود', intro_big:'مرحباً بك في البورتفوليو الخاص بي', footer_name:'سارة محمود', toggle:'English'
     }
-  
-    let lang = 'en', words = T.en.words;
-    try { const s = localStorage.getItem('lang'); if (s === 'ar' || s === 'en') lang = s; } catch(e){}
-  
-    function apply(l){
-      lang = l; const d = T[l]; words = d.words;
-      const root = document.documentElement;
-      root.setAttribute('lang', l); root.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr');
-      document.querySelectorAll('[data-i18n]').forEach(n => { n.textContent = d[n.dataset.i18n]; });
-      document.querySelectorAll('[data-i18n-ph]').forEach(n => { n.placeholder = d[n.dataset.i18nPh]; });
-      document.querySelectorAll('[data-i18n-html]').forEach(n => { n.innerHTML = d[n.dataset.i18nHtml]; });
-      $('lang').textContent = d.toggle;
-      renderMarquee(l);
-      restartTyping();
-      try { localStorage.setItem('lang', l); } catch(e){}
+  };
+  /* ---------- Marquee items (rendered twice for a seamless loop) ---------- */
+  const MARQUEE = [
+    { en:'Landing Pages', ar:'صفحات هبوط',     icon:'🪟' },
+    { en:'Optimization',  ar:'تحسين الأداء',    icon:'⚡' },
+    { en:'Custom Code',   ar:'كود مخصص',       icon:'</>' },
+    { en:'SEO',           ar:'تحسين محركات البحث', icon:'🔍' },
+    { en:'WhatsApp & Social', ar:'واتساب وسوشيال', icon:'🔗' },
+    { en:'Framer',        ar:'Framer',         icon:'🎨' }
+  ];
+  function renderMarquee(l){
+    const half = (hidden) => '<div class="marquee-half"' + (hidden ? ' aria-hidden="true"' : '') + '>' +
+      MARQUEE.map(m => '<span class="marquee-pill"><span>' + m.icon.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</span><span>' + m[l] + '</span></span>').join('') + '</div>';
+    $('marqueeTrack').innerHTML = half(false) + half(true);
+  }
+
+  let lang = 'en', words = T.en.words;
+  try { const s = localStorage.getItem('lang'); if (s === 'ar' || s === 'en') lang = s; } catch(e){}
+
+  function apply(l){
+    lang = l; const d = T[l]; words = d.words;
+    const root = document.documentElement;
+    root.setAttribute('lang', l); root.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr');
+    document.querySelectorAll('[data-i18n]').forEach(n => { n.textContent = d[n.dataset.i18n]; });
+    document.querySelectorAll('[data-i18n-ph]').forEach(n => { n.placeholder = d[n.dataset.i18nPh]; });
+    document.querySelectorAll('[data-i18n-html]').forEach(n => { n.innerHTML = d[n.dataset.i18nHtml]; });
+    $('lang').textContent = d.toggle;
+    renderMarquee(l);
+    restartTyping();
+    try { localStorage.setItem('lang', l); } catch(e){}
+  }
+  $('lang').addEventListener('click', () => apply(lang === 'en' ? 'ar' : 'en'));
+
+  /* ---------- Typing effect ---------- */
+  const el = $('typed'); let w = 0, i = 0, del = false, timer = null;
+  function type(){
+    if (!el) return;
+    const word = words[w % words.length];
+    el.textContent = word.slice(0, i);
+    let wait = del ? 40 : 80;
+    if (!del && i === word.length){ del = true; wait = 1400; }
+    else if (del && i === 0){ del = false; w = (w + 1) % words.length; }
+    else i += del ? -1 : 1;
+    timer = setTimeout(type, wait);
+  }
+  function restartTyping(){ clearTimeout(timer); w = 0; i = 0; del = false; type(); }
+
+  /* ---------- Reveal on scroll ---------- */
+  // Cards and headings fade in as they enter the screen and play again each time you scroll back to them
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const n = e.target;
+    if (e.isIntersecting) {
+      const sib = [...n.parentElement.children].filter(c => c.classList.contains('reveal'));
+      n.style.transitionDelay = Math.min(sib.indexOf(n), 4) * 140 + 'ms';
+      n.classList.add('in');
+    } else {
+      n.style.transitionDelay = '0ms';
+      n.classList.remove('in');
     }
-    $('lang').addEventListener('click', () => apply(lang === 'en' ? 'ar' : 'en'));
-  
-    /* ---------- Typing effect ---------- */
-    const el = $('typed'); let w = 0, i = 0, del = false, timer = null;
-    function type(){
-      if (!el) return;
-      const word = words[w % words.length];
-      el.textContent = word.slice(0, i);
-      let wait = del ? 40 : 80;
-      if (!del && i === word.length){ del = true; wait = 1400; }
-      else if (del && i === 0){ del = false; w = (w + 1) % words.length; }
-      else i += del ? -1 : 1;
-      timer = setTimeout(type, wait);
-    }
-    function restartTyping(){ clearTimeout(timer); w = 0; i = 0; del = false; type(); }
-  
-    /* ---------- Reveal on scroll ---------- */
-    // Cards and headings fade in as they enter the screen and play again each time you scroll back to them
-    const io = new IntersectionObserver(es => es.forEach(e => {
-      const n = e.target;
-      if (e.isIntersecting) {
-        const sib = [...n.parentElement.children].filter(c => c.classList.contains('reveal'));
-        n.style.transitionDelay = Math.min(sib.indexOf(n), 4) * 140 + 'ms';
-        n.classList.add('in');
-      } else {
-        n.style.transitionDelay = '0ms';
-        n.classList.remove('in');
-      }
-    }), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-    const startReveal = () => document.querySelectorAll('.reveal').forEach(n => io.observe(n));
-  
-    /* ---------- Copy email / phone when tapped (the mail and call apps still open if the device has them) ---------- */
-    const toast = $('toast'); let toastTimer = null;
-    function showToast(msg){
-      toast.textContent = msg; toast.classList.add('show');
-      clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
-    }
-  
-    document.querySelectorAll('[data-copy]').forEach(a => a.addEventListener('click', async () => {
-      const text = a.dataset.copy; let ok = false;
-      try { await navigator.clipboard.writeText(text); ok = true; } catch(e){}
-      if (!ok) {
-        try {
-          const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-          document.body.appendChild(ta); ta.select(); ok = document.execCommand('copy'); ta.remove();
-        } catch(e){}
-      }
-      showToast(ok ? T[lang][a.dataset.toast] : text);
-    }));
-  
-    /* background is a still photo now */
-    const VIEWS = ['home', 'about', 'services', 'projects', 'process'];
-    let viewIdx = 0;
-    function onScroll(){}
-  
-    /* ---------- Click sound on every button and link ---------- */
-    let ac = null;
-    function clickSound(){
+  }), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  const startReveal = () => document.querySelectorAll('.reveal').forEach(n => io.observe(n));
+
+  /* ---------- Copy email / phone when tapped (the mail and call apps still open if the device has them) ---------- */
+  const toast = $('toast'); let toastTimer = null;
+  function showToast(msg){
+    toast.textContent = msg; toast.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+
+  document.querySelectorAll('[data-copy]').forEach(a => a.addEventListener('click', async () => {
+    const text = a.dataset.copy; let ok = false;
+    try { await navigator.clipboard.writeText(text); ok = true; } catch(e){}
+    if (!ok) {
       try {
-        const AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return;
-        ac = ac || new AC();
-        if (ac.state === 'suspended') ac.resume();
-        const t = ac.currentTime;
-        const o = ac.createOscillator(), g = ac.createGain();
-        o.type = 'sine';
-        o.frequency.setValueAtTime(900, t);
-        o.frequency.exponentialRampToValueAtTime(520, t + 0.09);
-        g.gain.setValueAtTime(0.0001, t);
-        g.gain.exponentialRampToValueAtTime(0.18, t + 0.01);
-        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
-        o.connect(g); g.connect(ac.destination);
-        o.start(t); o.stop(t + 0.16);
-      } catch(err){}
+        const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); ok = document.execCommand('copy'); ta.remove();
+      } catch(e){}
     }
-    document.addEventListener('click', e => { if (e.target.closest('a, button')) clickSound(); });
-  
-    /* ---------- Mobile menu ---------- */
-    const burger = $('burger'), links = $('links');
-    function setMenu(open){
-      links.classList.toggle('open', open);
-      burger.classList.toggle('open', open);
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    }
-    burger.addEventListener('click', e => { e.stopPropagation(); setMenu(!links.classList.contains('open')); });
-    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
-    document.addEventListener('click', e => { if (!e.target.closest('nav')) setMenu(false); });
-  
-    /* ---------- Pages: Home shows every section in order; each section also has its own page ---------- */
-    let currentPage = null;
-    function showView(id, updateHash){
-      if (!VIEWS.includes(id)) id = 'home';
-      const same = id === currentPage;
-      document.querySelectorAll('section.view').forEach(sec => sec.classList.toggle('active', id === 'home' ? sec.id !== 'about' : sec.id === id));
-      currentPage = id; viewIdx = id === 'home' ? 0 : 1;
-      document.body.classList.toggle('is-home', id === 'home');
-      window.scrollTo({ top: 0, behavior: same ? 'smooth' : 'instant' });
-      onScroll();
-      if (updateHash) { try { history.replaceState(null, '', '#' + id); } catch(e){} }
-    }
-    document.addEventListener('click', e => {
-      const a = e.target.closest('a[href^="#"]');
-      if (!a) return;
-      const id = a.getAttribute('href').slice(1);
-      if (VIEWS.includes(id)) { e.preventDefault(); showView(id, true); }
-      else if (id === 'socials') { e.preventDefault(); $('socials').scrollIntoView({ behavior: 'smooth' }); }
-    });
-    addEventListener('hashchange', () => showView(location.hash.slice(1), false));
-    showView(location.hash.slice(1), false);
-  
-    /* ---------- Start Your Project: a short chat, then WhatsApp ---------- */
-    const chat = $('chat'), chatPanel = $('chatPanel'), chatBody = $('chatBody'), chatWa = $('chatWa');
-    let chatTimers = [];
-    let chatName = '', chatMsgTxt = '';
-    const waLink = () => {
-      const d = T[lang];
-      return 'https://wa.me/201023874936?text=' + encodeURIComponent(d.wa_hi.replace('{n}', chatName) + (chatMsgTxt ? ' ' + chatMsgTxt : ''));
-    };
-    function chatAdd(text, who){
-      const d = document.createElement('div'); d.className = 'msg ' + who; d.textContent = text;
-      chatBody.appendChild(d); chatBody.scrollTop = chatBody.scrollHeight; return d;
-    }
-    function chatTyping(){
-      const d = document.createElement('div'); d.className = 'msg bot typing'; d.innerHTML = '<span></span><span></span><span></span>';
-      chatBody.appendChild(d); chatBody.scrollTop = chatBody.scrollHeight; return d;
-    }
-    function at(ms, fn){ chatTimers.push(setTimeout(fn, ms)); }
-    function botSays(text, typeFrom, showAt){
-      let t = null;
-      at(typeFrom, () => { t = chatTyping(); });
-      at(showAt, () => { if (t) t.remove(); chatAdd(text, 'bot'); });
-    }
-    function openChat(){
-      const d = T[lang];
-      chatTimers.forEach(clearTimeout); chatTimers = [];
-      chatBody.innerHTML = ''; chatPanel.classList.remove('done', 'ask');
-      chatName = ''; chatMsgTxt = ''; $('chatForm').reset();
-      $('chatName').textContent = d.chat_name; $('chatStatus').textContent = d.chat_status;
-      $('chatAvatar').textContent = d.chat_name.charAt(0);
-      chatWa.textContent = d.c_btn; chatWa.href = waLink();
-      chat.classList.add('open');
-      botSays(d.c1, 200, 800);
-      botSays(d.c2, 1200, 1800);
-      at(1900, () => { chatPanel.classList.add('ask'); try { $('chatName2').focus({preventScroll:true}); } catch(e){} });
-    }
-    $('chatForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const d = T[lang];
-      chatName = $('chatName2').value.trim(); chatMsgTxt = $('chatMsg').value.trim();
-      if (!chatName) return;
-      chatPanel.classList.remove('ask');
-      chatAdd(chatName + (chatMsgTxt ? ' — ' + chatMsgTxt : ''), 'me');
-      chatWa.href = waLink();
-      let t = null;
-      at(300, () => { t = chatTyping(); });
-      at(1100, () => { if (t) t.remove(); chatAdd(d.c3.replace('{n}', chatName), 'bot'); chatPanel.classList.add('done'); });
-    });
-    function closeChat(){ chatTimers.forEach(clearTimeout); chatTimers = []; chat.classList.remove('open'); }
-    document.querySelectorAll('.js-start').forEach(b => b.addEventListener('click', e => { e.preventDefault(); openChat(); }));
-    $('chatClose').addEventListener('click', closeChat);
-    chat.addEventListener('click', e => { if (e.target === chat) closeChat(); });
-    addEventListener('keydown', e => { if (e.key === 'Escape') closeChat(); });
-  
-    /* ---------- Welcome screen: show first, then open the site ---------- */
-    const intro = $('intro'); let introDone = false;
-    document.documentElement.style.overflow = 'hidden';
-    function endIntro(){
-      if (introDone) return; introDone = true;
-      intro.classList.add('done');
-      document.documentElement.style.overflow = '';
-      startReveal();
-      setTimeout(() => intro.remove(), 1100);
-    }
-    setTimeout(endIntro, 3000);
-    intro.addEventListener('click', endIntro);
-  
-    apply(lang);
-  })();
-  </script>
-  
-  </body></html>
+    showToast(ok ? T[lang][a.dataset.toast] : text);
+  }));
+
+  /* background is a still photo now */
+  const VIEWS = ['home', 'about', 'services', 'projects', 'process'];
+  let viewIdx = 0;
+  function onScroll(){}
+
+  /* ---------- Click sound on every button and link ---------- */
+  let ac = null;
+  function clickSound(){
+    try {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      ac = ac || new AC();
+      if (ac.state === 'suspended') ac.resume();
+      const t = ac.currentTime;
+      const o = ac.createOscillator(), g = ac.createGain();
+      o.type = 'sine';
+      o.frequency.setValueAtTime(900, t);
+      o.frequency.exponentialRampToValueAtTime(520, t + 0.09);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.18, t + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+      o.connect(g); g.connect(ac.destination);
+      o.start(t); o.stop(t + 0.16);
+    } catch(err){}
+  }
+  document.addEventListener('click', e => { if (e.target.closest('a, button')) clickSound(); });
+
+  /* ---------- Mobile menu ---------- */
+  const burger = $('burger'), links = $('links');
+  function setMenu(open){
+    links.classList.toggle('open', open);
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burger.addEventListener('click', e => { e.stopPropagation(); setMenu(!links.classList.contains('open')); });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('click', e => { if (!e.target.closest('nav')) setMenu(false); });
+
+  /* ---------- Pages: Home shows every section in order; each section also has its own page ---------- */
+  let currentPage = null;
+  function showView(id, updateHash){
+    if (!VIEWS.includes(id)) id = 'home';
+    const same = id === currentPage;
+    document.querySelectorAll('section.view').forEach(sec => sec.classList.toggle('active', id === 'home' ? sec.id !== 'about' : sec.id === id));
+    currentPage = id; viewIdx = id === 'home' ? 0 : 1;
+    document.body.classList.toggle('is-home', id === 'home');
+    window.scrollTo({ top: 0, behavior: same ? 'smooth' : 'instant' });
+    onScroll();
+    if (updateHash) { try { history.replaceState(null, '', '#' + id); } catch(e){} }
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href').slice(1);
+    if (VIEWS.includes(id)) { e.preventDefault(); showView(id, true); }
+    else if (id === 'socials') { e.preventDefault(); $('socials').scrollIntoView({ behavior: 'smooth' }); }
+  });
+  addEventListener('hashchange', () => showView(location.hash.slice(1), false));
+  showView(location.hash.slice(1), false);
+
+  /* ---------- Start Your Project: a short chat, then WhatsApp ---------- */
+  const chat = $('chat'), chatPanel = $('chatPanel'), chatBody = $('chatBody'), chatWa = $('chatWa');
+  let chatTimers = [];
+  let chatName = '', chatMsgTxt = '';
+  const waLink = () => {
+    const d = T[lang];
+    return 'https://wa.me/201023874936?text=' + encodeURIComponent(d.wa_hi.replace('{n}', chatName) + (chatMsgTxt ? ' ' + chatMsgTxt : ''));
+  };
+  function chatAdd(text, who){
+    const d = document.createElement('div'); d.className = 'msg ' + who; d.textContent = text;
+    chatBody.appendChild(d); chatBody.scrollTop = chatBody.scrollHeight; return d;
+  }
+  function chatTyping(){
+    const d = document.createElement('div'); d.className = 'msg bot typing'; d.innerHTML = '<span></span><span></span><span></span>';
+    chatBody.appendChild(d); chatBody.scrollTop = chatBody.scrollHeight; return d;
+  }
+  function at(ms, fn){ chatTimers.push(setTimeout(fn, ms)); }
+  function botSays(text, typeFrom, showAt){
+    let t = null;
+    at(typeFrom, () => { t = chatTyping(); });
+    at(showAt, () => { if (t) t.remove(); chatAdd(text, 'bot'); });
+  }
+  function openChat(){
+    const d = T[lang];
+    chatTimers.forEach(clearTimeout); chatTimers = [];
+    chatBody.innerHTML = ''; chatPanel.classList.remove('done', 'ask');
+    chatName = ''; chatMsgTxt = ''; $('chatForm').reset();
+    $('chatName').textContent = d.chat_name; $('chatStatus').textContent = d.chat_status;
+    $('chatAvatar').textContent = d.chat_name.charAt(0);
+    chatWa.textContent = d.c_btn; chatWa.href = waLink();
+    chat.classList.add('open');
+    botSays(d.c1, 200, 800);
+    botSays(d.c2, 1200, 1800);
+    at(1900, () => { chatPanel.classList.add('ask'); try { $('chatName2').focus({preventScroll:true}); } catch(e){} });
+  }
+  $('chatForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const d = T[lang];
+    chatName = $('chatName2').value.trim(); chatMsgTxt = $('chatMsg').value.trim();
+    if (!chatName) return;
+    chatPanel.classList.remove('ask');
+    chatAdd(chatName + (chatMsgTxt ? ' — ' + chatMsgTxt : ''), 'me');
+    chatWa.href = waLink();
+    let t = null;
+    at(300, () => { t = chatTyping(); });
+    at(1100, () => { if (t) t.remove(); chatAdd(d.c3.replace('{n}', chatName), 'bot'); chatPanel.classList.add('done'); });
+  });
+  function closeChat(){ chatTimers.forEach(clearTimeout); chatTimers = []; chat.classList.remove('open'); }
+  document.querySelectorAll('.js-start').forEach(b => b.addEventListener('click', e => { e.preventDefault(); openChat(); }));
+  $('chatClose').addEventListener('click', closeChat);
+  chat.addEventListener('click', e => { if (e.target === chat) closeChat(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeChat(); });
+
+  /* ---------- Welcome screen: show first, then open the site ---------- */
+  const intro = $('intro'); let introDone = false;
+  document.documentElement.style.overflow = 'hidden';
+  function endIntro(){
+    if (introDone) return; introDone = true;
+    intro.classList.add('done');
+    document.documentElement.style.overflow = '';
+    startReveal();
+    setTimeout(() => intro.remove(), 1100);
+  }
+  setTimeout(endIntro, 3000);
+  intro.addEventListener('click', endIntro);
+
+  apply(lang);
+})();
+</script>
+
+</body></html>
